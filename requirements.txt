@@ -1,0 +1,10 @@
+"django.contrib.gis",asgiref==3.5.0
+Django==4.0.3
+djangorestframework==3.13.1
+GDAL==3.4.2
+postgis==1.0.4
+postgres==4.0
+psycopg2-binary==2.9.3
+psycopg2-pool==1.1
+pytz==2022.1
+sqlparse==0.4.2
