@@ -1,4 +1,4 @@
-"django.contrib.gis",asgiref==3.5.0
+asgiref==3.5.0
 Django==4.0.3
 djangorestframework==3.13.1
 GDAL==3.4.2
