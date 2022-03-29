@@ -7,6 +7,29 @@ Message board using geographic location of users
 
 Users can write messages  and these messages are shown to others who are geographically close. Messages can be tagged with categories such as "offer/seek rideshare", "books I want to lend out", "lost house pet", etc. .
 
+## Setup:
+
+- Install Python 3.10
+
+```sh
+brew install python@3.10
+brew unlink python@3.9
+brew link python@3.10
+```
+
+- Create a virtual environment
+
+```sh
+python3 -m venv venv
+```
+
+- Activate the environment and install the dependencies
+
+```sh
+source venv/bin/activate
+pip install -r requirements.txt
+```
+
 ## Objectives:
 
 - Design and develop base site with layout, admin area.
