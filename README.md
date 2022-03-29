@@ -1,4 +1,4 @@
-###_This is just a placeholder until details have been specified with our client._
+### _This is just a placeholder until details have been specified with our client._
 ***
 
 # message_board
