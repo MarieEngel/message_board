@@ -29,6 +29,9 @@
                   style="width: 80px;"
                 />
                 <h5>{{ user.username }}</h5>
+                <a href="{% url 'user:update-profile' %}" role="button" class="btn btn-outline-light" data-mdb-ripple-color="dark">
+                  Edit profile
+                </a>
               </div>
               <div class="col-md-8">
                 <div class="card-body p-4">

@@ -6,10 +6,9 @@ from django.contrib import messages
 from django.urls import reverse
 
 from . import models
-from .forms import UserRegisterForm
+from .forms import UserRegisterForm, UserUpdateForm, ProfileUpdateForm
 
 
-# Create your views here.
 @transaction.atomic
 def register(request):
     if request.method == 'POST':
@@ -21,11 +20,40 @@ def register(request):
             profile = models.Profile.objects.create(user=user)
             profile.save()
 
-            messages.success(request, f'Account created for {username}!', fail_silently=True)  # we can also use add_message() method instead of the shortcuts
+            messages.success(request, f'Account created for {username}!', fail_silently=True)
             return redirect(reverse('user:login'))
     else:
         form = UserRegisterForm()
     return render(request, "user/register.html", {'form': form})
+
+@login_required
+@transaction.atomic
+def update_profile(request):
+    if request.method == 'POST':
+        print(request.POST)
+        
+        u_form = UserUpdateForm(request.POST, instance=request.user)
+        p_form = ProfileUpdateForm(request.POST,
+                                   request.FILES,
+                                   instance=request.user.profile) 
+        print(request.FILES)
+        if u_form.is_valid() and p_form.is_valid():
+            print(request.POST)
+            u_form.save()
+            p_form.save()
+            messages.success(request, f'Your account has been updated!', fail_silently=True)
+            return redirect('user:user-profile') # Redirect back to profile page
+
+    else:
+        u_form = UserUpdateForm(instance=request.user)
+        p_form = ProfileUpdateForm(instance=request.user.profile)
+
+    context = {
+        'u_form': u_form,
+        'p_form': p_form
+    }
+    return render(request, "user/update_profile.html", context)
+
 
 @login_required
 def user_profile(request):
