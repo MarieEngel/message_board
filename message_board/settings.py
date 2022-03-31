@@ -115,6 +115,8 @@ USE_I18N = True
 
 USE_TZ = True
 
+LOGIN_REDIRECT_URL = 'user:user-profile' # redirect after successful login
+LOGIN_URL = 'user:login'   # redirect with @login_required
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.0/howto/static-files/
