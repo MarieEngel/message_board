@@ -28,6 +28,7 @@ DEBUG = True
 
 ALLOWED_HOSTS = [
     "limitless-woodland-23532.herokuapp.com",
+    "localhost"
     ]
 
 
@@ -88,6 +89,11 @@ DATABASES = {
         'NAME': BASE_DIR / 'db.sqlite3',
     }
 }
+
+import dj_database_url
+if os.environ.get('DATABASE_URL'):
+    DATABASES['default'] =
+        dj_database_url.config(default=os.environ['DATABASE_URL'])
 
 
 # Password validation
