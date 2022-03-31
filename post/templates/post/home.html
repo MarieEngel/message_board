@@ -1,0 +1,24 @@
+{% extends 'post/base.html' %}
+{% block title %}Latest Posts{% endblock %}
+{% block content %}
+    <h1>Latest Posts</h1>
+    <p>
+        <ul>
+            {% for post in post_list %}
+                <li>
+                    <p><a href="/post/{{ post.id }}/">{{ post.title }}</a> <br />posted by {{post.user}} <br /> date: {{post.created_at}} <br /> last modified: {{post.modified_at}} <br />
+                    {% if user.is_authenticated %}
+                        {% if user.id == post.user.id %}
+                            <a href="{% url 'post:update-post' post.id %}">Edit</a> 
+                            <a href="{% url 'post:delete-post' post.id %}">Delete</a>
+                        
+                        {% endif %}
+                    {% endif %}
+                </p>
+
+                </li>
+            {% endfor %}
+        </ul>
+    </p>
+    
+{% endblock %}
