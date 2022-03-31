@@ -92,8 +92,7 @@ DATABASES = {
 
 import dj_database_url
 if os.environ.get('DATABASE_URL'):
-    DATABASES['default'] =
-        dj_database_url.config(default=os.environ['DATABASE_URL'])
+    DATABASES['default'] = dj_database_url.config(default=os.environ['DATABASE_URL'])
 
 
 # Password validation
