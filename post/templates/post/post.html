@@ -1,0 +1,36 @@
+{% extends 'post/base.html' %}
+{% block title %}{{ post.title }}{% endblock %}
+{% block content %}
+    <h1>{{ post.title }}</h1>
+   
+    <p>
+        <small>posted by
+            {{ post.user }} </br>
+            {% if user.is_authenticated %}
+                {% if user.id == post.user.id %}
+                     <a href="{% url 'post:update-post' post.id %}">Edit</a>
+                        <a href="{% url 'post:delete-post' post.id %}">Delete</a>
+                {% endif %} 
+            {% endif %}
+        </small>
+    </p>
+    <hr>
+</br>
+
+{% if post.photo %}
+    <p>
+        <img src="{{ post.photo.url }}" class="img-thumbnail" alt="New Image"/>
+    </p>
+{% endif %}
+<p>
+    {{ post.body }}
+</p>
+<br />
+<hr>
+<h4>Comments...</h4>
+
+<br />
+<br />
+<hr>
+<a href="{% url "home" %}">Back to the latest messages</a>
+{% endblock %}
