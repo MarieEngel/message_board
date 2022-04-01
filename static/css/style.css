@@ -1,0 +1,77 @@
+nav {
+    background-color: rgb(195, 111, 26);
+  }
+  header div {
+    background-color: rgb(195, 111, 26);
+    opacity: 80%;
+    color: white;
+  }
+  body {
+    background-color: rgb(232, 214, 177);
+  }
+  .dropdown-menu {
+    background-color: rgb(195, 111, 26);
+  }
+  ul.dropdown-menu li a:active {
+      background-color: rgb(195, 111, 26);
+  }
+  ul.navbar-nav  li a {
+    color: white;
+  }
+  ul.navbar-nav li a:hover {
+    color: rgb(209, 190, 190);
+  }
+  ul.dropdown-menu li a {
+      color: white;
+  }
+  ul.dropdown-menu li a:hover {
+      color: black;
+  }
+  .navbar-toggler-icon {
+    background-image: url("data:image/svg+xml;charset=utf8,%3Csvg viewBox='0 0 32 32' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath stroke='white' stroke-width='2' stroke-linecap='round' stroke-miterlimit='10' d='M4 8h24M4 16h24M4 24h24'/%3E%3C/svg%3E");
+  }
+
+
+
+
+
+
+nav {
+    background-color: rgb(195, 111, 26);
+  }
+  header div {
+    background-color: rgb(195, 111, 26);
+    opacity: 80%;
+    color: white;
+  }
+  body {
+    background-color: rgb(232, 214, 177);
+  }
+  .dropdown-menu {
+    background-color: rgb(195, 111, 26);
+  }
+  ul.dropdown-menu li a:active {
+    background-color: rgb(10, 6, 3);
+  }
+  ul.dropdown-menu li a:hover {
+    background-color: rgb(232, 214, 177);
+  }
+  ul.navbar-nav  li a {
+    color: white;
+  }
+  ul.navbar-nav li a:hover {
+    color: rgb(209, 190, 190);
+  }
+  li.nav-item a:focus {
+    color: rgb(209, 190, 190);
+    outline: none!important;
+  }
+  ul.dropdown-menu li a {
+      color: white;
+  }
+  ul.dropdown-menu li a:hover {
+      color: black;
+  }
+  .navbar-toggler-icon {
+    background-image: url("data:image/svg+xml;charset=utf8,%3Csvg viewBox='0 0 32 32' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath stroke='white' stroke-width='2' stroke-linecap='round' stroke-miterlimit='10' d='M4 8h24M4 16h24M4 24h24'/%3E%3C/svg%3E");
+  }
