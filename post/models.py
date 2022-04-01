@@ -6,6 +6,7 @@ from django.contrib.auth.models import User
 #     city = models.CharField(max_length=100)
 #     postal_code = models.CharField(max_length=4)
 
+
 class Post(models.Model):
     title = models.CharField(max_length=100)
     photo = models.ImageField(null=True, blank=True, upload_to="images/")
@@ -27,6 +28,6 @@ class Comment(models.Model):
     body = models.TextField()
     created_at = models.DateTimeField(auto_now_add=True)
     modified_at = models.DateTimeField(auto_now=True)
-   
+    
     def __str__(self) -> str:
         return '%s - %s' % (self.post.title, self.name)

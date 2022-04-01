@@ -6,19 +6,24 @@
         <ul>
             {% for post in post_list %}
                 <li>
-                    <p><a href="/post/{{ post.id }}/">{{ post.title }}</a> <br />posted by {{post.user}} <br /> date: {{post.created_at}} <br /> last modified: {{post.modified_at}} <br />
-                    {% if user.is_authenticated %}
-                        {% if user.id == post.user.id %}
-                            <a href="{% url 'post:update-post' post.id %}">Edit</a> 
-                            <a href="{% url 'post:delete-post' post.id %}">Delete</a>
-                        
+                    <p>
+                        <a href="/post/{{ post.id }}/">{{ post.title }}</a>
+                        <br />
+                        posted by {{ post.user }}
+                        <br />
+                        date: {{ post.created_at }}
+                        <br />
+                        last modified: {{ post.modified_at }}
+                        <br />
+                        {% if user.is_authenticated %}
+                            {% if user.id == post.user.id %}
+                                <a href="{% url 'post:update-post' post.id %}">Edit</a>
+                                <a href="{% url 'post:delete-post' post.id %}">Delete</a>
+                            {% endif %}
                         {% endif %}
-                    {% endif %}
-                </p>
-
+                    </p>
                 </li>
             {% endfor %}
         </ul>
     </p>
-    
 {% endblock %}
