@@ -1,5 +1,6 @@
 {% extends 'post/base.html' %}
 {% block content %}
+<div class="container">
     {% if user.is_authenticated %}
         {% if user.id == post.user.id %}
             <h1>Edit</h1>
@@ -17,4 +18,5 @@
     {% else %}
         You are not allowed here!
     {% endif %}
+</div>
 {% endblock content %}
