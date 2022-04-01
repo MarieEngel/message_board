@@ -1,0 +1,18 @@
+# please put the codes under the {{ post.body }}
+# I added a few line breaks just for better visual 
+<br/><br/>
+<h2>Comments</h2>
+{% if not post.comments.all %}
+   No Comments Yet...<a href="#">Add one</a>
+
+{% else %}
+  {% for comment in post.comments.all %}
+      <strong>
+      {{ comment.name }} - 
+      {{ comment.date_added }}
+      </strong>
+
+ <br/><br/>
+ {{ comment.body }}
+ {% endfor %} 
+ {% endif %}    
