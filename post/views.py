@@ -46,7 +46,7 @@ def delete_post(request, id):
         post.delete()
         return redirect("/")
 
-    return render(request, "post/delete_post.html")
+    return render(request, "post/delete_post.html", {'post': post})
 
 
 @login_required
