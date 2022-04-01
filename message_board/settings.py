@@ -28,6 +28,7 @@ DEBUG = True
 
 ALLOWED_HOSTS = [
     "limitless-woodland-23532.herokuapp.com",
+    "message-board-samso.herokuapp.com",
     "localhost"
     ]
 
