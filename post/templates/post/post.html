@@ -1,51 +1,55 @@
 {% extends 'post/base.html' %}
 {% block title %}{{ post.title }}{% endblock %}
 {% block content %}
-<div class="container">
-    <h1>{{ post.title }}</h1>
-   
-    <p>
-        <small>posted by
-            {{ post.user }} </br>
-            {% if user.is_authenticated %}
-                {% if user.id == post.user.id %}
-                     <a href="{% url 'post:update-post' post.id %}">Edit</a>
-                        <a href="{% url 'post:delete-post' post.id %}">Delete</a>
-                {% endif %} 
-            {% endif %}
-        </small>
-    </p>
+
+<div class="container mt-5">
+    <div class="row d-flex justify-content-center">
+        <div class="col-md-8">
+            <div class="card text-center">
+                <div class="card-header">
+                    <h2 class="text-center">{{ post.title }}</h2>
+                </div>
+                <div class="card-body post-card">
+                {% if post.photo %}
+                    <img src="{{ post.photo.url }}" class="img-fluid rounded-start" alt="...">
+                {% endif %}
+                <p class="card-text my-3">{{ post.body }}</p>
+                {% if user.is_authenticated %}
+                    {% if user.id == post.user.id %}
+                        <a href="{% url 'post:update-post' post.id %}" class="btn btn-success-custom btn-sm" role="button">Edit</a>
+                        <a href="{% url 'post:delete-post' post.id %}" class="btn btn-danger-custom btn-sm" role="button">Delete</a>
+                    {% endif %} 
+                {% endif %}
+                </div>
+                <div class="card-footer text-muted">
+                    <small class="text-muted">posted by
+                        {{ post.user }} on {{ post.created_at }}
+                    </small>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <br />
     <hr>
-</br>
 
-{% if post.photo %}
-    <p>
-        <img src="{{ post.photo.url }}" class="img-thumbnail" alt="New Image"/>
-    </p>
-{% endif %}
-<p>
-    {{ post.body }}
-</p>
-<br />
-<hr>
-<h4>Comments...</h4>
-{% if not post.comments.all %}
-   No Comments Yet...<a href="#">Add one</a>
+    <h4>Comments...</h4>
+    {% if not post.comments.all %}
+    No Comments Yet...<a class="btn btn-comment-custom" role="button" href="#">Add one</a>
 
-{% else %}
-  {% for comment in post.comments.all %}
-      <strong>
-      {{ comment.name }} - 
-      {{ comment.created_at }} - {{ comment.modified_at }}
-      </strong>
+    {% else %}
+    {% for comment in post.comments.all %}
+        <strong>
+        {{ comment.name }} - 
+        {{ comment.created_at }} - {{ comment.modified_at }}
+        </strong>
 
- <br/><br/>
- {{ comment.body }}
- {% endfor %} 
- {% endif %}    
-<br />
-<br />
-<hr>
-<a href="{% url "home" %}">Back to the latest messages</a>
+    <br/><br/>
+    {{ comment.body }}
+    {% endfor %} 
+    {% endif %}    
+    <br/><br/>
+    <hr>
+    <a href="{% url "home" %}">Back to the latest messages</a>
 </div>
 {% endblock %}
