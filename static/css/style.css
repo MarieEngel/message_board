@@ -1,0 +1,63 @@
+nav {
+    background-color: rgb(195, 111, 26);
+  }
+  header div {
+    background-color: rgb(209, 146, 82);
+    /* opacity: 80%; */
+    color: white;
+  }
+  body {
+    background-color: rgb(232, 214, 177);
+  }
+  .dropdown-menu {
+    background-color: rgb(195, 111, 26);
+  }
+  ul.dropdown-menu li a:active {
+      background-color: rgb(195, 111, 26);
+  }
+  ul.navbar-nav  li a {
+    color: white;
+  }
+  ul.navbar-nav li a:hover {
+    color: rgb(209, 190, 190);
+  }
+  ul.dropdown-menu li a {
+      color: white;
+  }
+  ul.dropdown-menu li a:hover {
+      color: black;
+  }
+  .navbar-toggler-icon {
+    background-image: url("data:image/svg+xml;charset=utf8,%3Csvg viewBox='0 0 32 32' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath stroke='white' stroke-width='2' stroke-linecap='round' stroke-miterlimit='10' d='M4 8h24M4 16h24M4 24h24'/%3E%3C/svg%3E");
+  }
+  a.btn-success-custom {
+      width: 5em;
+      background-color: rgb(114, 135, 114);
+    color: aliceblue;
+  }
+  a.btn-success-custom:hover {
+    width: 5em;
+    background-color: rgb(76, 114, 76);
+    color: aliceblue;
+}
+  a.btn-danger-custom {
+    opacity: 50;
+    width: 5em;
+    background-color: rgb(179, 106, 106);
+    color: aliceblue;
+}
+a.btn-danger-custom:hover {
+    opacity: 50;
+    width: 5em;
+    background-color: rgb(177, 75, 75);
+    color: aliceblue;
+}
+
+a.custom-post-title {
+    text-decoration: none;
+    color: black;
+}
+div.custom-post-card {
+    background-color: rgb(212, 168, 124);
+    border-radius: 2em;
+}

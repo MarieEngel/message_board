@@ -1,6 +1,7 @@
 {% extends 'post/base.html' %}
 {% block title %}{{ post.title }}{% endblock %}
 {% block content %}
+<div class="container">
     <h1>{{ post.title }}</h1>
    
     <p>
@@ -46,4 +47,5 @@
 <br />
 <hr>
 <a href="{% url "home" %}">Back to the latest messages</a>
+</div>
 {% endblock %}
