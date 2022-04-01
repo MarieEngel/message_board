@@ -76,21 +76,18 @@ class TestPost(TestCase):
 
     def test_home_view_logged_out(self):
         """Tests that logged out users can't see posts."""
-        response = self.client.get("/")
+        response = self.client.get("/", follow=True)
         self.assertEqual(response.status_code, 200)
         self.assertNotContains(response, "Latest Posts")
 
 
-    # def test_add_post_logged_out(self):
-    #     """Tests that logged out users can't add posts."""
-    #     response = self.client.get("/")
-    #     self.assertEqual(response.status_code, )
-    #     self.assertTrue(
-    #         "Login" in str(response.content)
-    #     )
-    #     self.assertTrue(
-    #         "Register" in str(response.content)
-    #    )
+    def test_add_post_logged_out(self):
+        """Tests that logged out users can't add posts."""
+        response = self.client.get("/", follow=True)
+        self.assertEqual(response.status_code, 200)
+        self.assertContains(response, "Login")
+        self.assertContains(response, "Register")
+
 
     def test_delete_post_logged_out(self):
         """Tests that logged out users can't delete posts."""
