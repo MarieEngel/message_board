@@ -1,31 +1,43 @@
 {% extends 'post/base.html' %}
-{% block title %}Latest Posts{% endblock %}
+{% block title %}
+    Latest Posts
+{% endblock %}
+
 {% block content %}
-<div class="container">
-    <h1>Latest Posts</h1>
-    <p>
-        <ul>
-            {% for post in post_list %}
-                <li>
-                    <p>
-                        <a href="/post/{{ post.id }}/">{{ post.title }}</a>
-                        <br />
-                        posted by {{ post.user }}
-                        <br />
-                        date: {{ post.created_at }}
-                        <br />
-                        last modified: {{ post.modified_at }}
-                        <br />
-                        {% if user.is_authenticated %}
-                            {% if user.id == post.user.id %}
-                                <a href="{% url 'post:update-post' post.id %}">Edit</a>
-                                <a href="{% url 'post:delete-post' post.id %}">Delete</a>
+<div class="container mt-5">
+    <h1 class="my-3 text-center">Latest Posts</h1>
+    <div class="row d-flex justify-content-center">
+        {% for post in post_list %}
+        <div class="col-md-8">
+            <div class="card custom-post-card my-2 border">
+                <div class="row m-3 g-0">
+                    <div class="col-md-4">
+                        <a class="custom-post-title" href="{% url 'post:post' post.id %}">
+                            <h3 class="card-title">{{ post.title }}</h3>
+                            {% if post.photo %}
+                            <img src="{{ post.photo.url }}" class="img-fluid rounded-start" alt="...">
                             {% endif %}
+                        </a>
+                    </div>
+                    <div class="col-md-8">
+                        <div class="card-body">
+                            <p class="card-text"><small>posted by {{ post.user }}</small></p>
+                            <p class="card-text"><small>date: {{ post.created_at }}</small></p>
+                            <p class="card-text"><small>last modified: {{ post.modified_at }}</small></p>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        {% if user.is_authenticated %}
+                        {% if user.id == post.user.id %}
+                            <a href="{% url 'post:update-post' post.id %}" class="btn btn-success-custom btn-sm" role="button">Edit</a>
+                            <a href="{% url 'post:delete-post' post.id %}" class="btn btn-danger-custom btn-sm" role="button">Delete</a>
                         {% endif %}
-                    </p>
-                </li>
-            {% endfor %}
-        </ul>
-    </p>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
 </div>
 {% endblock %}

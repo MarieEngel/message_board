@@ -4,15 +4,15 @@
 {% block content %}
 <div class="container">
     <div class="row d-flex justify-content-center mt-5">
-        <div class="col col-lg-8 border">
-        <form action="" method="post">
+        <div class="col col-lg-8 border form">
+        <form method="post">
             {% csrf_token %}
             <fieldset>
-                <legend class="border-bottom mb-4">Join today</legend>
+                <legend class="border-bottom mb-4 px-2">Join today</legend>
                 {{ form.as_p  }}
             </fieldset>
             <div class="form-group">
-                <button class="btn btn-outline-light" type="submit">Sign in</button>
+                <button class="btn btn-submit-custom" type="submit">Sign in</button>
             </div>
         </form>
         <div class="border-top pt-3">

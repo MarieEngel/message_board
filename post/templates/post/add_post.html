@@ -1,16 +1,22 @@
 {% extends 'post/base.html' %}
 {% block content %}
 <div class="container">
-    <h1>Add a new Post</h1>
-    <div class="col-sm-7">
+    <div class="row d-flex justify-content-center mt-5">
+        <div class="col col-lg-8 border form">
         <form method="post" enctype="multipart/form-data">
-            {{ form.as_p }}
             {% csrf_token %}
-            <button type="submit" class="btn btn-sm btn-dark">Submit</button>
+            <fieldset>
+                <legend class="border-bottom mb-4 px-2">Add a new Post</legend>
+                {{ form.as_p  }}
+            </fieldset>
+            <div class="form-group">
+                <button class="btn btn-submit-custom" type="submit">Submit</button>
+            </div>
         </form>
+        <div class="border-top pt-3">
+            {{ success_message }}
+        </div>
+        </div>
     </div>
-    <p>
-        {{ success_message }}
-    </p>
 </div>
 {% endblock content %}
