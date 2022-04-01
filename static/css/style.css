@@ -115,10 +115,12 @@ div.card-body.post-card {
 
 fieldset legend {
     background-color: rgb(209, 146, 82);
+    border-radius: 0.7em;
 }
 
 div.form {
     background-color: rgb(222, 194, 166);
+    border-radius: 0.7em;
 }
 
 
