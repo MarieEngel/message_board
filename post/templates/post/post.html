@@ -28,7 +28,20 @@
 <br />
 <hr>
 <h4>Comments...</h4>
+{% if not post.comments.all %}
+   No Comments Yet...<a href="#">Add one</a>
 
+{% else %}
+  {% for comment in post.comments.all %}
+      <strong>
+      {{ comment.name }} - 
+      {{ comment.created_at }} - {{ comment.modified_at }}
+      </strong>
+
+ <br/><br/>
+ {{ comment.body }}
+ {% endfor %} 
+ {% endif %}    
 <br />
 <br />
 <hr>
