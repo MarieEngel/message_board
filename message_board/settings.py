@@ -42,9 +42,12 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    #packeges
+    "crispy_forms",
+    "crispy_bootstrap5",
+    #apps
     'user',
     'post',
-
 ]
 
 MIDDLEWARE = [
@@ -126,7 +129,12 @@ USE_I18N = True
 
 USE_TZ = True
 
+CRISPY_ALLOWED_TEMPLATE_PACKS = "bootstrap5"
+
+CRISPY_TEMPLATE_PACK = "bootstrap5"
+
 LOGIN_REDIRECT_URL = 'user:user-profile' # redirect after successful login
+
 LOGIN_URL = 'user:login'   # redirect with @login_required
 
 # Static files (CSS, JavaScript, Images)

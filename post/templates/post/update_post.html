@@ -1,11 +1,41 @@
 {% extends 'post/base.html' %}
 {% block content %}
+{% load crispy_forms_tags %}
+
 <div class="container">
+    {% if user.is_authenticated %}
+        {% if user.id == post.user.id %}
+        <div class="row d-flex justify-content-center mt-5">
+            <div class="col col-lg-8 border form">
+            <form method="post" enctype="multipart/form-data">
+                {% csrf_token %}
+                <fieldset>
+                    <legend class="border-bottom mb-4 px-2">Edit</legend>
+                    {{ form|crispy }}
+                </fieldset>
+                <div class="form-group">
+                    <button class="btn btn-submit-custom" type="submit">Submit</button>
+                </div>
+            </form>
+            <div class="border-top pt-3">
+                {{ success_message }}
+            </div>
+            </div>
+        </div>
+        {% else %}
+        You are not allowed here!
+        {% endif %}
+    {% else %}
+    You are not allowed here!
+    {% endif %}
+</div>
+
+<!-- <div class="container">
     {% if user.is_authenticated %}
         {% if user.id == post.user.id %}
             <h1>Edit</h1>
             <form method="post" enctype="multipart/form-data">
-                {{ form.as_p }}
+                {{ form|crispy }}
                 {% csrf_token %}
                 <button type="submit" class="btn btn-sm btn-dark">Submit</button>
             </form>
@@ -18,5 +48,5 @@
     {% else %}
         You are not allowed here!
     {% endif %}
-</div>
+</div> -->
 {% endblock content %}
