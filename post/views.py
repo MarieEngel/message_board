@@ -12,6 +12,7 @@ def home(request):
     return render(request, "post/home.html", context)
 
 
+@login_required
 def post(request, id):
     post = Post.objects.get(id=id)
     context = {"post": post}
