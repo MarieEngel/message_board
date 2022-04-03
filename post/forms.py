@@ -7,7 +7,7 @@ from .models import Post
 class AddPostForm(ModelForm):
     class Meta:
         model = Post
-        exclude = ["user", "modified", "created", "solved"]
+        exclude = ["user", "modified_at", "created_at", "solved_at"]
         widgets = {
             "title": forms.TextInput(attrs={"class": "form-control"}),
             "photo": forms.FileInput(attrs={"class": "form-control"}),
