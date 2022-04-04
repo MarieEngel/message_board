@@ -52,9 +52,10 @@
             </a>
             <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
               <li><a class="dropdown-item" href="{% url 'user:user-profile'%}">Profile</a></li>
-              <li><a class="dropdown-item" href="{% url 'user:update-profile' %}">Update Profile</a></li>
+              <li><a class="dropdown-item" href="{% url 'user:update-profile' %}">Edit Profile</a></li>
               <li><a class="dropdown-item" href="{% url 'post:add-post' %}">Add a Post</a></li>
               <li><hr class="dropdown-divider"></li>
+              <li><a class="dropdown-item" href="{% url 'user:delete-user' %}">Delete profile</a></li>
               <li><a class="dropdown-item" href="{% url 'user:logout'%}">Log out</a></li>
             </ul>
             {% else %}
