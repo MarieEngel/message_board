@@ -23,10 +23,26 @@ class Post(models.Model):
 
 
 class Comment(models.Model):
+    name = models.CharField(max_length=50)
+    email = models.EmailField(max_length=100)
     post = models.ForeignKey(Post, related_name="comments", on_delete=models.CASCADE)
     body = models.TextField()
     created_at = models.DateTimeField(auto_now_add=True)
-    modified_at = models.DateTimeField(auto_now=True)
+    class Meta:
+        ordering = ('-created_at',)
+    
+    def __str__(self):
+        return 'Comment by {}'.format(self.name)    
+
+
+
+
+
+
+    
+    
+
+    
     
    
    
