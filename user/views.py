@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
 from django.db import transaction
 from django.contrib.auth.models import User
@@ -58,3 +58,13 @@ def update_profile(request):
 @login_required
 def user_profile(request):
     return render(request, "user/profile.html")
+
+
+@login_required
+def delete_user(request):
+    user = request.user
+    if request.method == "POST":
+        user.delete()
+        return redirect("home")
+
+    return render(request, "user/delete_user.html", {'user': user})
