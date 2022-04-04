@@ -108,7 +108,7 @@ div.custom-post-card {
 div.card-header, div.card-footer {
     background-color: rgb(212, 168, 124);
 }
-div.card-body.post-card {
+div.card-body.post-card, div.card-body.comment-card {
     background-color: rgb(211, 198, 162);
 }
 
