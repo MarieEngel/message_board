@@ -6,7 +6,7 @@
             <form method="post" enctype="multipart/form-data">
                 {% csrf_token %}
                 <fieldset>
-                    <legend class="border-bottom mb-4 px-2">Delete profile: <small class="text-muted">Profile</small></legend>
+                    <legend class="border-bottom mb-4 px-2">Delete profile: <small class="text-muted">{{user.username}}</small></legend>
                     <p>Are you sure you want to delete this profile?</p>
                     <p>You will delete all your post and won't be able to access posts from others in your area!</p>
                     <button type="submit" class="btn btn-sm btn-danger-custom">Yes, delete</button>
