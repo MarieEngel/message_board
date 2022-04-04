@@ -5,7 +5,7 @@ from .forms import AddPostForm, CommentForm
 from .models import Post, Comment
 from django.urls import reverse_lazy
 from django.views.generic import CreateView
-
+from django.contrib.auth.mixins import LoginRequiredMixin
 # Create your views here.
 @login_required
 def home(request):
@@ -66,7 +66,7 @@ def update_post(request, id):
     context = {"form": form, "post": post, "success_message": success_message}
     return render(request, "post/update_post.html", context)
 
-class AddCommentView(CreateView):
+class AddCommentView(LoginRequiredMixin, CreateView):
       model = Comment
       form_class = CommentForm
       template_name = 'post/add_comment.html'
@@ -75,13 +75,8 @@ class AddCommentView(CreateView):
       
       def form_valid(self, form):
           form.instance.post_id = self.kwargs['pk']
+          form.instance.user = self.request.user
           return super().form_valid(form)
-
-
-
-
-
-
 
 
 
