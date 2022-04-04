@@ -1,9 +1,11 @@
+from re import template
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect, get_object_or_404
-from .forms import AddPostForm
-from .models import Post
-
-
+from .forms import AddPostForm, CommentForm
+from .models import Post, Comment
+from django.urls import reverse_lazy
+from django.views.generic import CreateView
+from django.contrib.auth.mixins import LoginRequiredMixin
 # Create your views here.
 @login_required
 def home(request):
@@ -63,3 +65,31 @@ def update_post(request, id):
             return redirect("/")
     context = {"form": form, "post": post, "success_message": success_message}
     return render(request, "post/update_post.html", context)
+
+class AddCommentView(LoginRequiredMixin, CreateView):
+      model = Comment
+      form_class = CommentForm
+      template_name = 'post/add_comment.html'
+      success_url = reverse_lazy('home')
+
+      
+      def form_valid(self, form):
+          form.instance.post_id = self.kwargs['pk']
+          form.instance.user = self.request.user
+          return super().form_valid(form)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

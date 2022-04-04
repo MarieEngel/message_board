@@ -30,26 +30,39 @@
         </div>
     </div>
 
-    <br />
-    <hr>
+<br/>
+<hr>
+<div class="container mt-5">
+    <h5 class="my-3 text-center">Comments...</h5>
+{% if not post.comments %}
+   <p class="text-center">No Comments Yet...</p>
 
-    <h4>Comments...</h4>
-    {% if not post.comments.all %}
-    No Comments Yet...<a class="btn btn-comment-custom" role="button" href="#">Add one</a>
+{% else %}
+<div class="row d-flex justify-content-center">
+    <div class="col-md-7">
+  {% for comment in post.comments.all %}
+  <div class="container my-2">
+        <div class="card">
+            <div class="card-header">
+                {{ comment.user.username }} - {{ comment.created_at }}
+            </div>
+            <div class="card-body comment-card">
+            <p class="card-text">{{ comment.body|linebreaks }}</p>
+            <a href="#" class="btn btn-comment-custom">Edit</a>
 
-    {% else %}
-    {% for comment in post.comments.all %}
-        <strong>
-        {{ comment.name }} - 
-        {{ comment.created_at }} - {{ comment.modified_at }}
-        </strong>
 
-    <br/><br/>
-    {{ comment.body }}
-    {% endfor %} 
-    {% endif %}    
-    <br/><br/>
-    <hr>
-    <a href="{% url "home" %}">Back to the latest messages</a>
+    </div>
+</div>
+</div>
+{% endfor %} 
+</div>
+</div>
+ {% endif %}   
+<br/>
+ <a href="{% url 'post:add_comment' post.pk %}"><p class="text-center" >Add Comment</p></a>
+<br/>
+<br />
+<hr>
+<a href="{% url "home" %}">Back to the latest messages</a>
 </div>
 {% endblock %}

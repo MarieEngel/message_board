@@ -23,6 +23,7 @@ class Post(models.Model):
 
 
 class Comment(models.Model):
+    
     post = models.ForeignKey(Post, related_name="comments", on_delete=models.CASCADE)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     body = models.TextField()
@@ -30,4 +31,17 @@ class Comment(models.Model):
     modified_at = models.DateTimeField(auto_now=True)
     
     def __str__(self) -> str:
-        return '%s - %s' % (self.post.title, self.name)
+        return '%s - %s' % (self.post.title, self.user.username)    
+
+
+
+
+
+
+    
+    
+
+    
+    
+   
+   

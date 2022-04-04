@@ -1,7 +1,7 @@
 from django import forms
 from django.forms import ModelForm
 
-from .models import Post
+from .models import Post, Comment
 
 
 class AddPostForm(ModelForm):
@@ -13,3 +13,12 @@ class AddPostForm(ModelForm):
             "photo": forms.FileInput(attrs={"class": "form-control"}),
             "body": forms.Textarea(attrs={"class": "form-control"}),
         }
+class CommentForm(ModelForm):
+    class Meta:
+        model = Comment
+        fields = ['body']
+        
+        
+        
+        
+        
