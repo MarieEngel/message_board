@@ -13,7 +13,6 @@ def home(request):
     context = {"post_list": post_list}
     return render(request, "post/home.html", context)
 
-
 @login_required
 def post(request, id):
     post = Post.objects.get(id=id)
@@ -66,30 +65,20 @@ def update_post(request, id):
     context = {"form": form, "post": post, "success_message": success_message}
     return render(request, "post/update_post.html", context)
 
+
 class AddCommentView(LoginRequiredMixin, CreateView):
-      model = Comment
-      form_class = CommentForm
-      template_name = 'post/add_comment.html'
-      success_url = reverse_lazy('home')
+    model = Comment
+    form_class = CommentForm
+    template_name = 'post/add_comment.html'
+    success_url = reverse_lazy('home')
 
       
-      def form_valid(self, form):
-          form.instance.post_id = self.kwargs['pk']
-          form.instance.user = self.request.user
-          return super().form_valid(form)
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+    def form_valid(self, form):
+        form.instance.post_id = self.kwargs['pk']
+        form.instance.user = self.request.user
+        return super().form_valid(form)
+    
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["post"] = Post.objects.filter(pk=self.kwargs['pk']).first()
+        return context
