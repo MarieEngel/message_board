@@ -14,7 +14,7 @@
             <div class="form-group">
                 <button class="btn btn-submit-custom" type="submit">Submit</button>
                 
-                <a href="{% url 'home' %}" class="btn btn-cancel-custom" role="button">Cancel</a>
+                <a href="{% url 'post:post' post.id %}" class="btn btn-cancel-custom" role="button">Cancel</a>
             </div>
         </form>
         <div class="border-top pt-3">
@@ -23,17 +23,4 @@
         </div>
     </div>
 </div>
-   
- <!-- <h1>Add Comment</h1>
- <div class="form-group">
-    <form method="POST">
-        {% csrf_token %}
-   {% if user.is_authenticated %}
-        {{ form.media }}
-   {% endif %}
-        {{ form.as_p }}
-        <br/>
-        <button class="btn btn-secondary"> Add Comment </button>
-    </form>
-</div> -->
 {% endblock %}

@@ -17,7 +17,7 @@
                             {% if post.photo %}
                             <img src="{{ post.photo.url }}" class="img-fluid rounded-start" alt="...">
                             {% endif %}
-                            <p class="card-text text-muted"><small>{{ post.user }} - {{ post.created_at }}</small></p>
+                            
                     </div>
                     <div class="col-md-8">
                         <div class="card-body">
@@ -25,9 +25,13 @@
                         </div>
                     </div>
                 </div>
+                <p class="card-text text-muted text-center my-0"><small>{{ post.user }} - {{ post.created_at|date:"d/m/y H:i" }}</small></p>
+                <p class="card-text text-muted text-center my-0"><small>Comments: {{ post.comments.all|length }}</small></p>
+
             </div>
         </a>
         </div>
+        
         {% endfor %}
     </div>
 </div>
