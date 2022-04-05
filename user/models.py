@@ -10,12 +10,4 @@ class Profile(models.Model):
 
     def __repr__(self) -> str:
         return f'Profile(user={self.user.username})'
-
-
-    def save(self, *args, **kwargs):
-        super().save(*args, **kwargs)
-
-        img = Image.open(self.image.path)
-        output_size = (200, 200)
-        img.thumbnail(output_size)
-        img.save(self.image.path)
+        
