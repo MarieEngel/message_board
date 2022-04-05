@@ -1,7 +1,7 @@
 from django import forms
 from django.forms import ModelForm
 
-from .models import Post, Comment
+from .models import Post, Comment, Category
 
 
 class AddPostForm(ModelForm):
@@ -17,8 +17,7 @@ class CommentForm(ModelForm):
     class Meta:
         model = Comment
         fields = ['body']
-        
-        
-        
-        
-        
+
+class SearchForm(forms.Form):
+    query = forms.CharField(label="Search term", max_length=50)
+    categories = forms.ChoiceField(widget=forms.Select, choices=Category.objects.all(), required=False)

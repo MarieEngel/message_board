@@ -1,11 +1,13 @@
 from re import template
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect, get_object_or_404
-from .forms import AddPostForm, CommentForm
+from .forms import AddPostForm, CommentForm, SearchForm
 from .models import Post, Comment
 from django.urls import reverse_lazy
 from django.views.generic import CreateView
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.db.models import Q
+
 # Create your views here.
 @login_required
 def home(request):
@@ -72,13 +74,53 @@ class AddCommentView(LoginRequiredMixin, CreateView):
     template_name = 'post/add_comment.html'
     success_url = reverse_lazy('home')
 
-      
+
     def form_valid(self, form):
         form.instance.post_id = self.kwargs['pk']
         form.instance.user = self.request.user
         return super().form_valid(form)
-    
+
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context["post"] = Post.objects.filter(pk=self.kwargs['pk']).first()
         return context
+
+
+def search(request):
+    success_message = ""
+    search_results = []
+    if "query" in request.GET:
+        form = SearchForm(request.GET)
+        is_valid = form.is_valid()
+        if is_valid:
+            search_term = request.GET["query"]
+            search_results = Post.objects.filter(
+                Q(title__icontains=search_term)
+                | Q(body__icontains=search_term)
+            )
+            category = form.cleaned_data.get("categories")
+            print(category)
+            if category == '':
+                search_results = Post.objects.filter(
+                Q(title__icontains=search_term)
+                | Q(body__icontains=search_term)
+            )
+            else:
+                search_results = Post.objects.filter(
+                Q(title__icontains=search_term).filter(post__category_name=category)
+                | Q(body__icontains=search_term).filter(post__category_name=category)
+            )
+            if search_results:
+                success_message = f'Posts matching "{search_term}":'
+            else:
+                success_message = f"No results for {search_term}."
+        else:
+            success_message = "Form needs fixes!"
+    else:
+        form = SearchForm()
+    context = {
+        "form": form,
+        "success_message": success_message,
+        "search_results": search_results,
+    }
+    return render(request, "post/search.html", context)
