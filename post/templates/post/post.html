@@ -48,7 +48,10 @@
             </div>
             <div class="card-body comment-card">
             <p class="card-text">{{ comment.body|linebreaks }}</p>
-            <a href="#" class="btn btn-comment-custom">Edit</a>
+            {% if user.is_authenticated and user == comment.user %}
+            <a href="{% url 'post:update-comment' post.id comment.id %}" class="btn btn-success-custom btn-sm" role="button">Edit</a>
+            <a href="{% url 'post:delete-comment' post.id comment.id %}" class="btn btn-danger-custom btn-sm" role="button">Delete</a>
+            {% endif %}
 
 
     </div>

@@ -1,10 +1,10 @@
-from re import template
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect, get_object_or_404
+from django.core.exceptions import PermissionDenied
 from .forms import AddPostForm, CommentForm
 from .models import Post, Comment
 from django.urls import reverse_lazy
-from django.views.generic import CreateView
+from django.views.generic import CreateView, DeleteView, UpdateView
 from django.contrib.auth.mixins import LoginRequiredMixin
 # Create your views here.
 @login_required
@@ -72,7 +72,6 @@ class AddCommentView(LoginRequiredMixin, CreateView):
     template_name = 'post/add_comment.html'
     success_url = reverse_lazy('home')
 
-      
     def form_valid(self, form):
         form.instance.post_id = self.kwargs['pk']
         form.instance.user = self.request.user
@@ -82,3 +81,46 @@ class AddCommentView(LoginRequiredMixin, CreateView):
         context = super().get_context_data(**kwargs)
         context["post"] = Post.objects.filter(pk=self.kwargs['pk']).first()
         return context
+
+
+class DeleteCommentView(LoginRequiredMixin, DeleteView):
+    model = Comment
+    template_name = 'post/delete_comment.html'
+    pk_url_kwarg = 'comment_id'
+
+    def get_success_url(self):
+        '''URL to redirect to when the form is successfully validated'''
+        return reverse_lazy('post:post', args=[self.kwargs.get('post_id')])
+
+    def get_object(self):
+        '''
+        Return the object the view is displaying if user is an author of a comment
+        else return 403
+        '''
+        if self.request.user != Comment.objects.get(pk=self.kwargs.get(self.pk_url_kwarg)).user:
+            raise PermissionDenied("You are not allowed here")
+        return Comment.objects.get(pk=self.kwargs.get(self.pk_url_kwarg))
+
+
+class UpdateCommentView(LoginRequiredMixin, UpdateView):
+    model = Comment
+    template_name = 'post/update_comment.html'
+    pk_url_kwarg = 'comment_id'
+    fields = ['body']
+
+    def get_success_url(self):
+        '''URL to redirect to when the form is successfully validated'''
+        return reverse_lazy('post:post', args=[self.kwargs.get('post_id')])
+
+    def get_initial(self):
+        """Return the initial data to use for forms on this view."""
+        return { 'body': Comment.objects.get(pk=self.kwargs.get(self.pk_url_kwarg)).body}
+ 
+    def get_object(self):
+        '''
+        Return the object the view is displaying if user is an author of a comment
+        else return 403
+        '''
+        if self.request.user != Comment.objects.get(pk=self.kwargs.get(self.pk_url_kwarg)).user:
+            raise PermissionDenied("You are not allowed here")
+        return Comment.objects.get(pk=self.kwargs.get(self.pk_url_kwarg))
