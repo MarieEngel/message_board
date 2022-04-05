@@ -51,8 +51,8 @@
           </li> -->
                     </ul>
                     <form class="d-flex" action="{% url "post:search" %}">
-                        {% csrf_token %}
-                        <li class="nav-item dropdown">
+                      {{ search_form }}
+                        <!-- <li class="nav-item dropdown">
                             <select class="nav-link dropdown-toggle active"
                                     href="#"
                                     id="navbarDropdown"
@@ -71,7 +71,7 @@
                                     </li>
                                 {% endfor %}
                             </ul>
-                        </li>
+                        </li> -->
                         <input class="form-control me-2"
                                type="search"
                                name="query"

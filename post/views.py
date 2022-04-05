@@ -107,8 +107,8 @@ def search(request):
             )
             else:
                 search_results = Post.objects.filter(
-                Q(title__icontains=search_term).filter(post__category_name=category)
-                | Q(body__icontains=search_term).filter(post__category_name=category)
+                Q(title__icontains=search_term, category__name=category)
+                | Q(body__icontains=search_term, category__name=category)
             )
             if search_results:
                 success_message = f'Posts matching "{search_term}":'
