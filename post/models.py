@@ -34,9 +34,14 @@ class Comment(models.Model):
         return '%s - %s' % (self.post.title, self.user.username)    
 
 
+class Category(models.Model):
+    name = models.CharField(max_length=100)
+    
+    class Meta:
+        verbose_name_plural = "categories"
 
-
-
+    def __repr__(self) -> str:
+        return f'Category(user={self.name})'
 
     
     
