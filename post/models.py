@@ -21,7 +21,7 @@ class Post(models.Model):
     photo = models.ImageField(null=True, blank=True, upload_to="images/")
     body = models.TextField()
     user = models.ForeignKey(User, on_delete=models.CASCADE)
-    category =  models.ForeignKey(Category, on_delete=models.CASCADE)
+    category =  models.ForeignKey(Category, on_delete=models.CASCADE, default="All")
     created_at = models.DateTimeField(auto_now_add=True)
     modified_at = models.DateTimeField(auto_now=True)
     solved_at = models.DateTimeField(null=True, blank=True)
