@@ -70,7 +70,10 @@ class AddCommentView(LoginRequiredMixin, CreateView):
     model = Comment
     form_class = CommentForm
     template_name = 'post/add_comment.html'
-    success_url = reverse_lazy('home')
+
+    def get_success_url(self):
+        '''URL to redirect to when the form is successfully validated'''
+        return reverse_lazy('post:post', args=[self.kwargs['pk']])
 
     def form_valid(self, form):
         form.instance.post_id = self.kwargs['pk']
@@ -97,9 +100,10 @@ class DeleteCommentView(LoginRequiredMixin, DeleteView):
         Return the object the view is displaying if user is an author of a comment
         else return 403
         '''
-        if self.request.user != Comment.objects.get(pk=self.kwargs.get(self.pk_url_kwarg)).user:
+        comment = Comment.objects.get(pk=self.kwargs.get(self.pk_url_kwarg))
+        if self.request.user != comment.user:
             raise PermissionDenied("You are not allowed here")
-        return Comment.objects.get(pk=self.kwargs.get(self.pk_url_kwarg))
+        return comment
 
 
 class UpdateCommentView(LoginRequiredMixin, UpdateView):
@@ -114,13 +118,16 @@ class UpdateCommentView(LoginRequiredMixin, UpdateView):
 
     def get_initial(self):
         """Return the initial data to use for forms on this view."""
-        return { 'body': Comment.objects.get(pk=self.kwargs.get(self.pk_url_kwarg)).body}
+        comment = Comment.objects.get(pk=self.kwargs.get(self.pk_url_kwarg))
+        return { 'body': comment.body}
  
     def get_object(self):
         '''
         Return the object the view is displaying if user is an author of a comment
         else return 403
         '''
-        if self.request.user != Comment.objects.get(pk=self.kwargs.get(self.pk_url_kwarg)).user:
+        comment = Comment.objects.get(pk=self.kwargs.get(self.pk_url_kwarg))
+        if self.request.user != comment.user:
             raise PermissionDenied("You are not allowed here")
-        return Comment.objects.get(pk=self.kwargs.get(self.pk_url_kwarg))
+        return comment
+        
