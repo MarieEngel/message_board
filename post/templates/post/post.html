@@ -41,7 +41,7 @@
 <div class="row d-flex justify-content-center">
     <div class="col-md-7">
   {% for comment in post.comments.all %}
-  <div class="container my-2">
+  <div class="container my-2" id="comment-{{ comment.pk }}">
         <div class="card">
             <div class="card-header">
                 {{ comment.user.username }} - {{ comment.created_at }}

@@ -65,69 +65,39 @@ def update_post(request, id):
     context = {"form": form, "post": post, "success_message": success_message}
     return render(request, "post/update_post.html", context)
 
+from django.contrib.auth.mixins import PermissionRequiredMixin
 
-class AddCommentView(LoginRequiredMixin, CreateView):
+class BelongsToTheUserMixin(PermissionRequiredMixin):
+    """Mixin for views to only allow the owners of the object to access them"""
+    def has_permission(self):
+        return self.request.user == self.get_object().user
+
+class RedirectToPostMixin:
+    def get_success_url(self):
+        url = reverse_lazy('post:post', kwargs={'id': self.object.post_id})
+        if not isinstance(self, DeleteView):
+            url += f"#comment-{self.object.id}"
+        return url
+
+class AddCommentView(RedirectToPostMixin, LoginRequiredMixin, CreateView):
     model = Comment
     form_class = CommentForm
     template_name = 'post/add_comment.html'
 
-    def get_success_url(self):
-        '''URL to redirect to when the form is successfully validated'''
-        return reverse_lazy('post:post', args=[self.kwargs['pk']])
-
-    def form_valid(self, form):
-        form.instance.post_id = self.kwargs['pk']
+    # fak django for not having a sane solution for hidden dynamic defaults 
+    def get_form(self, **kwargs):
+        form = super().get_form(**kwargs)
+        form.instance.post = Post.objects.get(pk=self.kwargs['pk'])
         form.instance.user = self.request.user
-        return super().form_valid(form)
-    
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        context["post"] = Post.objects.get(pk=self.kwargs['pk'])
-        return context
+        return form
 
-
-class DeleteCommentView(LoginRequiredMixin, DeleteView):
+class DeleteCommentView(RedirectToPostMixin, LoginRequiredMixin, BelongsToTheUserMixin, DeleteView):
     model = Comment
     template_name = 'post/delete_comment.html'
-    pk_url_kwarg = 'comment_id'
-
-    def get_success_url(self):
-        '''URL to redirect to when the form is successfully validated'''
-        return reverse_lazy('post:post', args=[self.kwargs.get('post_id')])
-
-    def get_object(self):
-        '''
-        Return the object the view is displaying if user is an author of a comment
-        else return 403
-        '''
-        comment = Comment.objects.get(pk=self.kwargs.get(self.pk_url_kwarg))
-        if self.request.user != comment.user:
-            raise PermissionDenied("You are not allowed here")
-        return comment
 
 
-class UpdateCommentView(LoginRequiredMixin, UpdateView):
+class UpdateCommentView(RedirectToPostMixin, LoginRequiredMixin, BelongsToTheUserMixin, UpdateView):
     model = Comment
     template_name = 'post/update_comment.html'
-    pk_url_kwarg = 'comment_id'
     fields = ['body']
 
-    def get_success_url(self):
-        '''URL to redirect to when the form is successfully validated'''
-        return reverse_lazy('post:post', args=[self.kwargs.get('post_id')])
-
-    def get_initial(self):
-        """Return the initial data to use for forms on this view."""
-        comment = Comment.objects.get(pk=self.kwargs.get(self.pk_url_kwarg))
-        return { 'body': comment.body}
- 
-    def get_object(self):
-        '''
-        Return the object the view is displaying if user is an author of a comment
-        else return 403
-        '''
-        comment = Comment.objects.get(pk=self.kwargs.get(self.pk_url_kwarg))
-        if self.request.user != comment.user:
-            raise PermissionDenied("You are not allowed here")
-        return comment
-        
