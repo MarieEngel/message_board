@@ -90,10 +90,6 @@ class AddCommentView(RedirectToPostMixin, LoginRequiredMixin, CreateView):
     form_class = CommentForm
     template_name = 'post/add_comment.html'
 
-<<<<<<< HEAD
-
-=======
->>>>>>> development
     def form_valid(self, form):
         form.instance.post_id = self.kwargs['pk']
         form.instance.user = self.request.user
@@ -105,7 +101,6 @@ class AddCommentView(RedirectToPostMixin, LoginRequiredMixin, CreateView):
         return context
 
 
-<<<<<<< HEAD
 def search(request):
     success_message = ""
     search_results = []
@@ -144,7 +139,7 @@ def search(request):
         "search_results": search_results,
     }
     return render(request, "post/search.html", context)
-=======
+
 class DeleteCommentView(RedirectToPostMixin, LoginRequiredMixin, BelongsToTheUserMixin, DeleteView):
     model = Comment
     template_name = 'post/delete_comment.html'
@@ -154,4 +149,3 @@ class UpdateCommentView(RedirectToPostMixin, LoginRequiredMixin, BelongsToTheUse
     model = Comment
     template_name = 'post/update_comment.html'
     fields = ['body']
->>>>>>> development
