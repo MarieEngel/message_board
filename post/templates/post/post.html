@@ -41,14 +41,17 @@
 <div class="row d-flex justify-content-center">
     <div class="col-md-7">
   {% for comment in post.comments.all %}
-  <div class="container my-2">
+  <div class="container my-2" id="comment-{{ comment.pk }}">
         <div class="card">
             <div class="card-header">
                 {{ comment.user.username }} - {{ comment.created_at }}
             </div>
             <div class="card-body comment-card">
             <p class="card-text">{{ comment.body|linebreaks }}</p>
-            <a href="#" class="btn btn-comment-custom">Edit</a>
+            {% if user.is_authenticated and user == comment.user %}
+            <a href="{% url 'post:update-comment' post.id comment.id %}" class="btn btn-success-custom btn-sm" role="button">Edit</a>
+            <a href="{% url 'post:delete-comment' post.id comment.id %}" class="btn btn-danger-custom btn-sm" role="button">Delete</a>
+            {% endif %}
 
 
     </div>
