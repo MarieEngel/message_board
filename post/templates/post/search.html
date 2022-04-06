@@ -1,0 +1,32 @@
+{% extends "post/base.html" %}
+{% block title %}Search{% endblock %}
+{% block header %}Search{% endblock %}
+{% block content %}
+    {{ success_message }}
+    <ul>
+        {% for post in search_results %}
+            <div class="col-md-8">
+                <a class="custom-post-title" href="{% url 'post:post' post.id %}">
+                    <div class="card custom-post-card my-2 border">
+                        <div class="row m-3 g-0">
+                            <h3 class="card-title">{{ post.title }}</h3>
+                            <div class="col-md-4">
+                                {% if post.photo %}<img src="{{ post.photo.url }}" class="img-fluid rounded-start" alt="...">{% endif %}
+                            </div>
+                            <div class="col-md-8">
+                                <div class="card-body">
+                                    <p class="card-text">
+                                        {{ post.body|truncatechars:100 }}
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                        <p class="card-text text-muted text-center my-0">
+                            <small>{{ post.user }} - {{ post.created_at|date:"d/m/y H:i" }}</small>
+                        </p>
+                    </div>
+                </a>
+            </div>
+        {% endfor %}
+    </ul>
+{% endblock %}
