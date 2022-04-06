@@ -1,6 +1,6 @@
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect, get_object_or_404
-from django.core.exceptions import PermissionDenied
+from django.contrib.auth.mixins import PermissionRequiredMixin
 from .forms import AddPostForm, CommentForm
 from .models import Post, Comment
 from django.urls import reverse_lazy
@@ -65,12 +65,12 @@ def update_post(request, id):
     context = {"form": form, "post": post, "success_message": success_message}
     return render(request, "post/update_post.html", context)
 
-from django.contrib.auth.mixins import PermissionRequiredMixin
 
 class BelongsToTheUserMixin(PermissionRequiredMixin):
     """Mixin for views to only allow the owners of the object to access them"""
     def has_permission(self):
         return self.request.user == self.get_object().user
+
 
 class RedirectToPostMixin:
     def get_success_url(self):
@@ -79,17 +79,22 @@ class RedirectToPostMixin:
             url += f"#comment-{self.object.id}"
         return url
 
+
 class AddCommentView(RedirectToPostMixin, LoginRequiredMixin, CreateView):
     model = Comment
     form_class = CommentForm
     template_name = 'post/add_comment.html'
 
-    # fak django for not having a sane solution for hidden dynamic defaults 
-    def get_form(self, **kwargs):
-        form = super().get_form(**kwargs)
-        form.instance.post = Post.objects.get(pk=self.kwargs['pk'])
+    def form_valid(self, form):
+        form.instance.post_id = self.kwargs['pk']
         form.instance.user = self.request.user
-        return form
+        return super().form_valid(form)
+    
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["post"] = Post.objects.filter(pk=self.kwargs['pk']).first()
+        return context
+
 
 class DeleteCommentView(RedirectToPostMixin, LoginRequiredMixin, BelongsToTheUserMixin, DeleteView):
     model = Comment
@@ -100,4 +105,3 @@ class UpdateCommentView(RedirectToPostMixin, LoginRequiredMixin, BelongsToTheUse
     model = Comment
     template_name = 'post/update_comment.html'
     fields = ['body']
-
