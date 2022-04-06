@@ -7,7 +7,7 @@
         <div class="col-md-8">
             <div class="card text-center">
                 <div class="card-header">
-                    <h3 class="text-center">{{ post.title }}</h3>
+                    <h2 class="text-center">{{ post.title }}</h2>
                 </div>
                 <div class="card-body post-card">
                 {% if post.photo %}
@@ -22,8 +22,8 @@
                 {% endif %}
                 </div>
                 <div class="card-footer text-muted">
-                    <small class="text-muted">
-                        {{ post.user }} - {{ post.created_at|date:"d/m/Y H:i" }}
+                    <small class="text-muted">posted by
+                        {{ post.user }} on {{ post.created_at }}
                     </small>
                 </div>
             </div>
@@ -41,19 +41,18 @@
 <div class="row d-flex justify-content-center">
     <div class="col-md-7">
   {% for comment in post.comments.all %}
-  <div class="container my-2">
+  <div class="container my-2" id="comment-{{ comment.pk }}">
         <div class="card">
             <div class="card-header">
-              <img src="{{ comment.user.profile.image.url }}" alt="avatar" width="32" height="32" class="rounded-circle">
-                {{ comment.user.username }} - {{ comment.created_at|date:"d/m/Y H:i" }}
+                {{ comment.user.username }} - {{ comment.created_at }}
             </div>
             <div class="card-body comment-card">
             <p class="card-text">{{ comment.body|linebreaks }}</p>
-
             {% if user.is_authenticated and user == comment.user %}
-            <a href="" class="btn btn-success-custom btn-sm" role="button">Edit</a>
-            <a href="" class="btn btn-danger-custom btn-sm" role="button">Delete</a>
+            <a href="{% url 'post:update-comment' post.id comment.id %}" class="btn btn-success-custom btn-sm" role="button">Edit</a>
+            <a href="{% url 'post:delete-comment' post.id comment.id %}" class="btn btn-danger-custom btn-sm" role="button">Delete</a>
             {% endif %}
+
 
     </div>
 </div>
