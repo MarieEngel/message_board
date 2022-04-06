@@ -20,5 +20,5 @@ class CommentForm(ModelForm):
 
 class SearchForm(forms.Form):
     # query = forms.CharField(label="Search term", max_length=50)
-    cat = [(c.name, c.name) for c in list(Category.objects.all())]
+    cat = [(c.name, c.name) for c in Category.objects.all()]
     categories = forms.ChoiceField(widget=forms.Select, choices=cat, required=False, label='')
