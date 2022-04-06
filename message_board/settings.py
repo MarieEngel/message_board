@@ -46,6 +46,7 @@ INSTALLED_APPS = [
     #packeges
     "crispy_forms",
     "crispy_bootstrap5",
+    'django.contrib.postgres',
     #apps
     'user',
     'post',
