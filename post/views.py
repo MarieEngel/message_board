@@ -1,11 +1,16 @@
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect, get_object_or_404
+
+from .forms import AddPostForm, CommentForm, SearchForm
+
 from django.contrib.auth.mixins import PermissionRequiredMixin
-from .forms import AddPostForm, CommentForm
+
 from .models import Post, Comment
 from django.urls import reverse_lazy
 from django.views.generic import CreateView, DeleteView, UpdateView
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.db.models import Q
+
 # Create your views here.
 @login_required
 def home(request):
@@ -65,6 +70,40 @@ def update_post(request, id):
     context = {"form": form, "post": post, "success_message": success_message}
     return render(request, "post/update_post.html", context)
 
+@login_required
+def search(request):
+    success_message = ""
+    search_results = []
+    if "query" in request.GET:
+        form = SearchForm(request.GET)
+        is_valid = form.is_valid()
+        if is_valid:
+            search_term = request.GET["query"]
+            results = Post.objects.filter(
+                Q(title__search=search_term)
+                | Q(body__search=search_term)
+            )
+            category = form.cleaned_data.get("categories")
+            if category == 'All':
+                search_results = results
+            else:
+                search_results = results.filter(category__name=category)
+            if search_results:
+                success_message = f'Posts matching "{search_term}":'
+            else:
+                success_message = f"No results for {search_term}."
+        else:
+            success_message = "Form needs fixes!"
+    else:
+        form = SearchForm()
+    context = {
+        "form": form,
+        "success_message": success_message,
+        "search_results": search_results,
+    }
+    return render(request, "post/search.html", context)
+
+
 
 class BelongsToTheUserMixin(PermissionRequiredMixin):
     """Mixin for views to only allow the owners of the object to access them"""
@@ -89,7 +128,7 @@ class AddCommentView(RedirectToPostMixin, LoginRequiredMixin, CreateView):
         form.instance.post_id = self.kwargs['pk']
         form.instance.user = self.request.user
         return super().form_valid(form)
-    
+
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context["post"] = Post.objects.filter(pk=self.kwargs['pk']).first()
