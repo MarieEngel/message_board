@@ -2,8 +2,9 @@
 {% block title %}Search{% endblock %}
 {% block header %}Search{% endblock %}
 {% block content %}
-    {{ success_message }}
-    <ul>
+    <div class="container mt-5">
+        <h3 class="my-3 text-center">{{ success_message }}</h3>
+        <div class="row d-flex justify-content-center">
         {% for post in search_results %}
             <div class="col-md-8">
                 <a class="custom-post-title" href="{% url 'post:post' post.id %}">
@@ -28,5 +29,7 @@
                 </a>
             </div>
         {% endfor %}
-    </ul>
+        </div>
+    </div>
+
 {% endblock %}
