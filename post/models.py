@@ -13,7 +13,7 @@ class Category(models.Model):
         verbose_name_plural = "categories"
 
     def __repr__(self) -> str:
-        return f'Category(user={self.name})'
+        return f'Category(name={self.name})'
 
 
 class Post(models.Model):
