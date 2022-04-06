@@ -70,6 +70,40 @@ def update_post(request, id):
     context = {"form": form, "post": post, "success_message": success_message}
     return render(request, "post/update_post.html", context)
 
+@login_required
+def search(request):
+    success_message = ""
+    search_results = []
+    if "query" in request.GET:
+        form = SearchForm(request.GET)
+        is_valid = form.is_valid()
+        if is_valid:
+            search_term = request.GET["query"]
+            results = Post.objects.filter(
+                Q(title__search=search_term)
+                | Q(body__search=search_term)
+            )
+            category = form.cleaned_data.get("categories")
+            if category == 'All':
+                search_results = results
+            else:
+                search_results = results.filter(category__name=category)
+            if search_results:
+                success_message = f'Posts matching "{search_term}":'
+            else:
+                success_message = f"No results for {search_term}."
+        else:
+            success_message = "Form needs fixes!"
+    else:
+        form = SearchForm()
+    context = {
+        "form": form,
+        "success_message": success_message,
+        "search_results": search_results,
+    }
+    return render(request, "post/search.html", context)
+
+
 
 class BelongsToTheUserMixin(PermissionRequiredMixin):
     """Mixin for views to only allow the owners of the object to access them"""
@@ -100,45 +134,6 @@ class AddCommentView(RedirectToPostMixin, LoginRequiredMixin, CreateView):
         context["post"] = Post.objects.filter(pk=self.kwargs['pk']).first()
         return context
 
-
-def search(request):
-    success_message = ""
-    search_results = []
-    if "query" in request.GET:
-        form = SearchForm(request.GET)
-        is_valid = form.is_valid()
-        if is_valid:
-            search_term = request.GET["query"]
-            search_results = Post.objects.filter(
-                Q(title__icontains=search_term)
-                | Q(body__icontains=search_term)
-            )
-            category = form.cleaned_data.get("categories")
-            print(category)
-            if category == 'All':
-                search_results = Post.objects.filter(
-                Q(title__icontains=search_term)
-                | Q(body__icontains=search_term)
-            )
-            else:
-                search_results = Post.objects.filter(
-                Q(title__icontains=search_term, category__name=category)
-                | Q(body__icontains=search_term, category__name=category)
-            )
-            if search_results:
-                success_message = f'Posts matching "{search_term}":'
-            else:
-                success_message = f"No results for {search_term}."
-        else:
-            success_message = "Form needs fixes!"
-    else:
-        form = SearchForm()
-    context = {
-        "form": form,
-        "success_message": success_message,
-        "search_results": search_results,
-    }
-    return render(request, "post/search.html", context)
 
 class DeleteCommentView(RedirectToPostMixin, LoginRequiredMixin, BelongsToTheUserMixin, DeleteView):
     model = Comment
