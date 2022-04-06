@@ -15,6 +15,9 @@ class Category(models.Model):
     def __repr__(self) -> str:
         return f'Category(name={self.name})'
 
+    def __str__(self) -> str:
+        return self.name
+
 
 class Post(models.Model):
     title = models.CharField(max_length=100)
