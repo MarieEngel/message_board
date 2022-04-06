@@ -115,7 +115,7 @@ def search(request):
             )
             category = form.cleaned_data.get("categories")
             print(category)
-            if category == '':
+            if category == 'All':
                 search_results = Post.objects.filter(
                 Q(title__icontains=search_term)
                 | Q(body__icontains=search_term)
