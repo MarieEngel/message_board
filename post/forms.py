@@ -22,4 +22,5 @@ class SearchForm(forms.Form):
     # query = forms.CharField(label="Search term", max_length=50)
     #cat = [(c.name, c.name) for c in Category.objects.all()]
     cat = [('All', 'All')]#+ cat
-    categories = forms.ChoiceField(widget=forms.Select, choices=cat, required=False, label='')
+    categories = forms.ChoiceField(widget=forms.Select(attrs={'class': 'select-category',}), choices=cat, required=False, label='')
+    query = forms.CharField(label="", max_length=50, widget=forms.TextInput(attrs={'placeholder': 'Search', 'class': 'form-control me-2'}))
