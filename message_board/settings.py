@@ -100,6 +100,18 @@ DATABASES = {
     }
 }
 
+if os.environ.get("GITHUB_WORKFLOW"):
+    DATABASES = {
+   'default': {
+       'ENGINE': 'django.db.backends.postgresql',
+       'NAME': 'message_board',
+       'USER': 'postgres',
+       'PASSWORD': 'postgres',
+       'HOST': '127.0.0.1',
+       'PORT': '5432',
+   }
+}
+
 import dj_database_url
 if os.environ.get('DATABASE_URL'):
     DATABASES['default'] = dj_database_url.config(default=os.environ['DATABASE_URL'])
