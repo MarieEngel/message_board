@@ -21,9 +21,9 @@ class TestPost(TestCase):
                 "body": "Some text",
             },
         )
-#         self.assertEqual(response.status_code, 302)
-#         response = self.client.get("/")
-#         self.assertTrue("Some title" in str(response.content))
+        self.assertEqual(response.status_code, 302)
+        response = self.client.get("/")
+        self.assertTrue("Some title" in str(response.content))
 
 
 #     def test_delete_post(self):
