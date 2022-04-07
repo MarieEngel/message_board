@@ -1,26 +1,26 @@
-# from django.test import TestCase
-# from django.contrib.auth.models import User
+from django.test import TestCase
+from django.contrib.auth.models import User
 
 
-# class TestPost(TestCase):
-#     def setUp(self):
-#         self.user = User.objects.create_superuser(
-#             username="testuser", password="password"
-#         )
+class TestPost(TestCase):
+    def setUp(self):
+        self.user = User.objects.create_superuser(
+            username="testuser", password="password"
+        )
 
-#     def tearDown(self):
-#         self.user.delete()
+    def tearDown(self):
+        self.user.delete()
 
-#     def test_add_post(self):
-#         """Test if a post created will show up on the home page."""
-#         self.client.login(username="testuser", password="password")
-#         response = self.client.post(
-#             "/post/add/",
-#             {
-#                 "title": "Some title",
-#                 "body": "Some text",
-#             },
-#         )
+    def test_add_post(self):
+        """Test if a post created will show up on the home page."""
+        self.client.login(username="testuser", password="password")
+        response = self.client.post(
+            "/post/add/",
+            {
+                "title": "Some title",
+                "body": "Some text",
+            },
+        )
 #         self.assertEqual(response.status_code, 302)
 #         response = self.client.get("/")
 #         self.assertTrue("Some title" in str(response.content))
