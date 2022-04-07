@@ -1,5 +1,6 @@
 from django.test import TestCase
 from django.contrib.auth.models import User
+from post.models import Category
 
 
 class TestPost(TestCase):
@@ -7,6 +8,7 @@ class TestPost(TestCase):
         self.user = User.objects.create_superuser(
             username="testuser", password="password"
         )
+        self.category = Category.objects.create(name="Lost")
 
     def tearDown(self):
         self.user.delete()
@@ -19,9 +21,11 @@ class TestPost(TestCase):
             {
                 "title": "Some title",
                 "body": "Some text",
+                "category": "Lost"
+
             },
         )
-        self.assertEqual(response.status_code, 302)
+        self.assertEqual(response.status_code, 200)
         response = self.client.get("/")
         self.assertTrue("Some title" in str(response.content))
 
