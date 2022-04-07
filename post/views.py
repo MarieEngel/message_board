@@ -48,12 +48,15 @@ def add_post(request):
 
 @login_required
 def delete_post(request, id):
+    success_message = ""
     post = get_object_or_404(Post, id=id)
-    if request.method == "POST":
-        post.delete()
-        return redirect("/")
-
-    return render(request, "post/delete_post.html", {'post': post})
+    if request.user == post.user:
+        if request.method == "POST":
+                post.delete()
+                return redirect("/")
+    else:
+        success_message = "You are not authorized to delete this entry."
+    return render(request, "post/delete_post.html", {'post': post, 'success_message': success_message})
 
 
 @login_required
@@ -62,11 +65,14 @@ def update_post(request, id):
     form = None
     post = get_object_or_404(Post, id=id)
     form = AddPostForm(request.POST or None, request.FILES or None, instance=post)
-    if request.method == "POST":
-        if form.is_valid():
-            form.save()
-            success_message = "You have successfully updated your post."
-            return redirect("/")
+    if request.user == post.user:
+        if request.method == "POST":
+            if form.is_valid():
+                form.save()
+                success_message = "You have successfully updated your post."
+                return redirect("/")
+    else:
+        success_message = "You are not authorized to delete this entry."
     context = {"form": form, "post": post, "success_message": success_message}
     return render(request, "post/update_post.html", context)
 
