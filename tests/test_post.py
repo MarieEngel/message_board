@@ -89,46 +89,46 @@ class TestPost(TestCase):
     #     self.assertContains(response, "Register")
 
 
-    def test_delete_post_logged_out(self):
-        """Tests that logged out users can't delete posts."""
-        self.client.login(username="testuser", password="password")
-        self.client.post(
-            "/post/add/",
-            {
-                "title": "To delete",
-                "body": "Text to be deleted",
-                "_save": "SAVE"},
-        )
-        response = self.client.get("/")
-        self.assertContains(response, "To delete")
-        self.client.logout()
-        response = self.client.get(
-            "/post/1/delete/",
-        )
-        self.assertEqual(response.status_code, 302)
-        self.assertNotContains(response,
-            "Are you sure you want to delete this post?")
+    # def test_delete_post_logged_out(self):
+    #     """Tests that logged out users can't delete posts."""
+    #     self.client.login(username="testuser", password="password")
+    #     self.client.post(
+    #         "/post/add/",
+    #         {
+    #             "title": "To delete",
+    #             "body": "Text to be deleted",
+    #             "_save": "SAVE"},
+    #     )
+    #     response = self.client.get("/")
+    #     self.assertContains(response, "To delete")
+    #     self.client.logout()
+    #     response = self.client.get(
+    #         "/post/1/delete/",
+    #     )
+    #     self.assertEqual(response.status_code, 302)
+    #     self.assertNotContains(response,
+    #         "Are you sure you want to delete this post?")
         
 
-    def test_update_post_logged_out(self):
-        """Tests that logged out users can't update posts."""
-        self.client.login(username="testuser", password="password")
-        self.client.post(
-            "/post/add/",
-            {
-                "title": "Version 1",
-                "body": "Text to be updated",
-                "_save": "SAVE"},
-        )
-        response = self.client.get("/")
-        self.assertContains(response, "Version 1")
-        self.client.logout()
-        response = self.client.get(
-            "/post/1/update/",
-        )
-        self.assertEqual(response.status_code, 302)
-        self.assertNotContains(response, 
-            "Edit")
+    # def test_update_post_logged_out(self):
+    #     """Tests that logged out users can't update posts."""
+    #     self.client.login(username="testuser", password="password")
+    #     self.client.post(
+    #         "/post/add/",
+    #         {
+    #             "title": "Version 1",
+    #             "body": "Text to be updated",
+    #             "_save": "SAVE"},
+    #     )
+    #     response = self.client.get("/")
+    #     self.assertContains(response, "Version 1")
+    #     self.client.logout()
+    #     response = self.client.get(
+    #         "/post/1/update/",
+    #     )
+    #     self.assertEqual(response.status_code, 302)
+    #     self.assertNotContains(response, 
+    #         "Edit")
         
 
 
