@@ -2,33 +2,31 @@
 {% block content %}
     {% load crispy_forms_tags %}
     <div class="container">
-        {% if user.is_authenticated and user.id == post.user.id %}
-            <div class="row d-flex justify-content-center mt-5">
-                <div class="col col-lg-8 border form">
-                    <form method="post" enctype="multipart/form-data">
-                        {% csrf_token %}
-                        <fieldset>
-                            <legend class="border-bottom mb-4 px-2">
-                                Edit
-                            </legend>
-                            {{ form|crispy }}
-                        </fieldset>
-                        <div class="form-group">
-                            <button class="btn btn-submit-custom" type="submit">Submit</button>
-                            <a href="{% url 'post:post' post.id %}"
-                               class="btn btn-cancel-custom"
-                               role="button">Cancel</a>
-                        </div>
-                    </form>
-                    <div class="border-top pt-3">{{ success_message }}</div>
-                </div>
+        {% comment %} {% if user.is_authenticated and user.id == post.user.id %} {% endcomment %}
+        <div class="row d-flex justify-content-center mt-5">
+            <div class="col col-lg-8 border form">
+                <form method="post" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    <fieldset>
+                        <legend class="border-bottom mb-4 px-2">
+                            Edit
+                        </legend>
+                        {{ form|crispy }}
+                    </fieldset>
+                    <div class="form-group">
+                        <button class="btn btn-submit-custom" type="submit">Submit</button>
+                        <a href="{% url 'post:post' post.id %}"
+                           class="btn btn-cancel-custom"
+                           role="button">Cancel</a>
+                    </div>
+                </form>
+                <div class="border-top pt-3">{{ success_message }}</div>
             </div>
-        {% else %}
+        </div>
+        {% comment %} {% else %}
             {{ success_message }}
-            <a href="{% url 'post:post' post.id %}"
-               class="btn btn-cancel-custom"
-               role="button">Back</a>
-        {% endif %}
+            <a href="{% url 'post:post' post.id %}" class="btn btn-cancel-custom" role="button">Back</a>
+        {% endif %} {% endcomment %}
     </div>
     <!-- <div class="container">
     {% if user.is_authenticated %}

@@ -1,4 +1,5 @@
 from django.contrib.auth.decorators import login_required
+from django.http import HttpResponse
 from django.shortcuts import render, redirect, get_object_or_404
 
 from .forms import AddPostForm, CommentForm, SearchForm
@@ -56,6 +57,7 @@ def delete_post(request, id):
                 return redirect("/")
     else:
         success_message = "You are not authorized to delete this entry."
+        return HttpResponse(success_message)
     return render(request, "post/delete_post.html", {'post': post, 'success_message': success_message})
 
 
