@@ -5,7 +5,7 @@ from django.shortcuts import render, redirect, get_object_or_404
 from .forms import AddPostForm, CommentForm, SearchForm
 
 from django.contrib.auth.mixins import PermissionRequiredMixin
-
+from django.core.exceptions import PermissionDenied
 from .models import Post, Comment
 from django.urls import reverse_lazy
 from django.views.generic import CreateView, DeleteView, UpdateView
@@ -49,16 +49,14 @@ def add_post(request):
 
 @login_required
 def delete_post(request, id):
-    success_message = ""
     post = get_object_or_404(Post, id=id)
-    if request.user == post.user:
-        if request.method == "POST":
-                post.delete()
-                return redirect("/")
+    if not request.user == post.user:
+        raise PermissionDenied
     else:
-        success_message = "You are not authorized to delete this entry."
-        return HttpResponse(success_message)
-    return render(request, "post/delete_post.html", {'post': post, 'success_message': success_message})
+        if request.method == "POST":
+            post.delete()
+            return redirect("/")
+    return render(request, "post/delete_post.html", {'post': post})
 
 
 @login_required
@@ -67,14 +65,14 @@ def update_post(request, id):
     form = None
     post = get_object_or_404(Post, id=id)
     form = AddPostForm(request.POST or None, request.FILES or None, instance=post)
-    if request.user == post.user:
+    if not request.user == post.user:
+        raise PermissionDenied
+    else:
         if request.method == "POST":
             if form.is_valid():
                 form.save()
                 success_message = "You have successfully updated your post."
                 return redirect("/")
-    else:
-        success_message = "You are not authorized to delete this entry."
     context = {"form": form, "post": post, "success_message": success_message}
     return render(request, "post/update_post.html", context)
 
