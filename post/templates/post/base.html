@@ -43,45 +43,9 @@
                                aria-current="page"
                                href="{% url 'map:default' %}">Energy Academy Location</a>
                         </li>
-                        <!-- <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle active" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-              Dropdown
-            </a>
-            <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-              <li><a class="dropdown-item" href="#">Action</a></li>
-              <li><a class="dropdown-item" href="#">Another action</a></li>
-              <li><hr class="dropdown-divider"></li>
-              <li><a class="dropdown-item" href="#">Something else here</a></li>
-            </ul>
-          </li> -->
                     </ul>
                     <form class="d-flex" action="{% url "post:search" %}">
-                      {{ search_form }}
-                        <!-- <li class="nav-item dropdown">
-                            <select class="nav-link dropdown-toggle active"
-                                    href="#"
-                                    id="navbarDropdown"
-                                    role="button"
-                                    data-bs-toggle="dropdown"
-                                    aria-expanded="false">
-                                Categories
-                            </select>
-                            <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                <li>
-                                    <a class="dropdown-item" href="#">All</a>
-                                </li>
-                                {% for category in all_categories %}
-                                    <li>
-                                        <a class="dropdown-item" href="#">{{ category.name }}</a>
-                                    </li>
-                                {% endfor %}
-                            </ul>
-                        </li> -->
-                        <input class="form-control me-2"
-                               type="search"
-                               name="query"
-                               placeholder="Search"
-                               aria-label="Search">
+                        {{search_form}}
                         <button class="btn btn-outline-light" type="submit">Search</button>
                     </form>
                     <ul class="navbar-nav mb-2 mb-lg-0 me-5 ms-3">
