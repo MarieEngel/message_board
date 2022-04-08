@@ -16,7 +16,7 @@ body {
   } */
 
 /* nav-link text white */
-ul.navbar-nav  li a, ul.dropdown-menu li a, a.nav-link.dropdown-toggle{
+ul.navbar-nav  li a, ul.dropdown-menu li a, a.nav-link.dropdown-toggle {
     color: white;
     outline: none;
 }
@@ -126,4 +126,13 @@ div.form {
 
 div.profile-info-board {
     background-color: rgb(229, 210, 188);
+}
+
+form select.select-category {
+    background-color: rgb(195, 111, 26); 
+    outline: none; 
+    border-color: white; 
+    border-radius: 0.3em;
+    text-align: center;
+    color: aliceblue;
 }
