@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/4.0/ref/settings/
 """
 
 from pathlib import Path
+import django_heroku
 import os
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -26,7 +27,11 @@ SECRET_KEY = 'django-insecure-l^+uh-m5%vpahn+kj=^6&a+77f4v8(xx^vrf7m8&130hm_#r#(
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = [
+    "limitless-woodland-23532.herokuapp.com",
+    "message-board-samso.herokuapp.com",
+    "localhost"
+    ]
 
 
 # Application definition
@@ -38,12 +43,20 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    #packeges
+    "crispy_forms",
+    "crispy_bootstrap5",
+    'django.contrib.postgres',
+    #apps
     'user',
     'post',
-
+    'storages',
 ]
 
 MIDDLEWARE = [
+    # Simplified static file serving.
+    # https://warehouse.python.org/project/whitenoise/
+    'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -66,6 +79,9 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                #custom context processor
+                'post.context_processors.all_categories',
+                'post.context_processors.forms_processor'
             ],
         },
     },
@@ -83,6 +99,22 @@ DATABASES = {
         'NAME': BASE_DIR / 'db.sqlite3',
     }
 }
+
+if os.environ.get("GITHUB_WORKFLOW"):
+    DATABASES = {
+   'default': {
+       'ENGINE': 'django.db.backends.postgresql',
+       'NAME': 'message_board',
+       'USER': 'postgres',
+       'PASSWORD': 'postgres',
+       'HOST': '127.0.0.1',
+       'PORT': '5432',
+   }
+}
+
+import dj_database_url
+if os.environ.get('DATABASE_URL'):
+    DATABASES['default'] = dj_database_url.config(default=os.environ['DATABASE_URL'])
 
 
 # Password validation
@@ -115,16 +147,47 @@ USE_I18N = True
 
 USE_TZ = True
 
+CRISPY_ALLOWED_TEMPLATE_PACKS = "bootstrap5"
+
+CRISPY_TEMPLATE_PACK = "bootstrap5"
+
+LOGIN_REDIRECT_URL = 'user:user-profile' # redirect after successful login
+
+LOGIN_URL = 'user:login'   # redirect with @login_required
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.0/howto/static-files/
 
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 STATIC_URL = 'static/'
+
+STATICFILES_DIRS = (
+    os.path.join(BASE_DIR, 'static'),
+)
+
+# Simplified static file serving.
+# https://warehouse.python.org/project/whitenoise/
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+
+MEDIA_URL = 'media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, "media/")
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.0/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+AWS_S3_FILE_OVERWRITE = False
+
+AWS_DEFAULT_ACL = None
+
+DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
+AWS_STORAGE_BUCKET_NAME = "samso-bucket"
+AWS_S3_SIGNATURE_VERSION = "s3v4"
+AWS_S3_REGION_NAME = "eu-central-1"
+
+django_heroku.settings(locals())
+
 
 try:
     from local_settings import *  # noqa

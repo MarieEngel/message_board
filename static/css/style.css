@@ -1,0 +1,138 @@
+nav {
+    background-color: rgb(195, 111, 26);
+  }
+header div {
+    background-color: rgb(209, 146, 82);
+    color: white;
+  }
+body {
+    background-color: rgb(232, 214, 177);
+}
+.dropdown-menu {
+    background-color: rgb(195, 111, 26);
+}
+  /* ul.dropdown-menu li a:active {
+      background-color: rgb(195, 111, 26);
+  } */
+
+/* nav-link text white */
+ul.navbar-nav  li a, ul.dropdown-menu li a, a.nav-link.dropdown-toggle {
+    color: white;
+    outline: none;
+}
+/* nav-link hover text, background color */
+ul.navbar-nav li a:hover, ul.dropdown-menu li a:hover {
+    color: rgb(112, 0, 0);
+    background-color: rgb(185, 102, 19);
+    border-radius: 1em;
+  }
+.navbar-toggler-icon {
+    background-image: url("data:image/svg+xml;charset=utf8,%3Csvg viewBox='0 0 32 32' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath stroke='white' stroke-width='2' stroke-linecap='round' stroke-miterlimit='10' d='M4 8h24M4 16h24M4 24h24'/%3E%3C/svg%3E");
+}
+
+  /* custom buttons danger, success */
+a.btn-success-custom {
+    width: 5em;
+    background-color: rgb(114, 135, 114);
+    color: aliceblue;
+}
+a.btn-success-custom:hover {
+    width: 5em;
+    background-color: rgb(76, 114, 76);
+    color: aliceblue;
+}
+a.btn-danger-custom {
+    width: 5em;
+    background-color: rgb(179, 106, 106);
+    color: aliceblue;
+}
+a.btn-danger-custom:hover {
+    width: 5em;
+    background-color: rgb(177, 75, 75);
+    color: aliceblue;
+}
+a.btn-comment-custom {
+    background-color: rgb(195, 111, 26);
+    color: aliceblue;
+}
+a.btn-comment-custom:hover {
+    background-color: rgb(175, 95, 14);
+    color: aliceblue;
+}
+a.btn-cancel-custom {
+    background-color: rgb(86, 64, 43);
+    color: aliceblue;
+}
+a.btn-cancel-custom:hover {
+    background-color: rgb(46, 34, 22);
+    color: aliceblue;
+}
+
+
+button.btn-submit-custom {
+    background-color: rgb(195, 111, 26);
+    color: aliceblue;
+}
+button.btn-submit-custom:hover {
+    background-color: rgb(175, 95, 14);
+    color: aliceblue;
+}
+button.btn-danger-custom {
+    background-color: rgb(179, 106, 106);
+    color: aliceblue;
+}
+button.btn-danger-custom:hover {
+    background-color: rgb(177, 75, 75);
+    color: aliceblue;
+}
+button.btn-cancel-custom {
+    background-color: rgb(86, 64, 43);
+    color: aliceblue;
+}
+button.btn-cancel-custom:hover {
+    background-color: rgb(46, 34, 22);
+    color: aliceblue;
+}
+
+/* postcard */
+a.custom-post-title {
+    text-decoration: none;
+    color: black;
+}
+div.custom-post-card {
+    background-color: rgb(212, 168, 124);
+    border-radius: 2em;
+}
+
+
+div.card-header, div.card-footer {
+    background-color: rgb(212, 168, 124);
+}
+div.card-body.post-card, div.card-body.comment-card {
+    background-color: rgb(211, 198, 162);
+}
+
+
+fieldset legend {
+    background-color: rgb(209, 146, 82);
+    border-radius: 0.7em;
+}
+
+div.form {
+    background-color: rgb(222, 194, 166);
+    border-radius: 0.7em;
+}
+
+
+div.profile-info-board {
+    background-color: rgb(229, 210, 188);
+}
+
+form select.select-category {
+    background-color: rgb(195, 111, 26); 
+    outline: none; 
+    border-color: white; 
+    border-radius: 0.3em;
+    text-align: center;
+    color: aliceblue;
+}
