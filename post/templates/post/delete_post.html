@@ -1,7 +1,6 @@
 {% extends 'post/base.html' %}
 {% block content %}
     <div class="container">
-        {% comment %} {% if user.is_authenticated and user.id == post.user.id %} {% endcomment %}
         <div class="row d-flex justify-content-center mt-5">
             <div class="col col-lg-8 border form">
                 <form method="post" enctype="multipart/form-data">
@@ -21,9 +20,5 @@
                 </form>
             </div>
         </div>
-        {% comment %} {% else %}
-            {{ success_message }}
-            <a href="{% url 'post:post' post.id %}" class="btn btn-sm btn-cancel-custom" role="button">Back</a>
-        {% endif %} {% endcomment %}
     </div>
 {% endblock content %}

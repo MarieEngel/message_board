@@ -2,7 +2,6 @@
 {% block content %}
     {% load crispy_forms_tags %}
     <div class="container">
-        {% comment %} {% if user.is_authenticated and user.id == post.user.id %} {% endcomment %}
         <div class="row d-flex justify-content-center mt-5">
             <div class="col col-lg-8 border form">
                 <form method="post" enctype="multipart/form-data">
@@ -23,28 +22,5 @@
                 <div class="border-top pt-3">{{ success_message }}</div>
             </div>
         </div>
-        {% comment %} {% else %}
-            {{ success_message }}
-            <a href="{% url 'post:post' post.id %}" class="btn btn-cancel-custom" role="button">Back</a>
-        {% endif %} {% endcomment %}
     </div>
-    <!-- <div class="container">
-    {% if user.is_authenticated %}
-        {% if user.id == post.user.id %}
-            <h1>Edit</h1>
-            <form method="post" enctype="multipart/form-data">
-                {{ form|crispy }}
-                {% csrf_token %}
-                <button type="submit" class="btn btn-sm btn-dark">Submit</button>
-            </form>
-            <p>
-                {{ success_message }}
-            </p>
-        {% else %}
-            You are not allowed here!
-        {% endif %}
-    {% else %}
-        You are not allowed here!
-    {% endif %}
-</div> -->
 {% endblock content %}
