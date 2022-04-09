@@ -81,19 +81,24 @@ class SeleniumTestPost(StaticLiveServerTestCase):
         select = Select(self.driver.find_element_by_name("category"))
         select.select_by_index(1)
 
-        submit_button = WebDriverWait(self.driver, 15).until(
-            EC.presence_of_element_located(
-                (
-                    By.XPATH,
-                    "//button[@class='btn btn-submit-custom']",
-                )
-            )
-        )
-        # element = self.driver.find_element_by_xpath("//button[@class='btn btn-submit-custom']")
-        # self.driver.execute_script("arguments[0].click();", submit_button)
+        # WebDriverWait(self.driver, 30).until(
+        #     EC.element_to_be_clickable(
+        #         (
+        #             By.XPATH,
+        #             "//button[@class='btn btn-submit-custom']",
+        #         )
+        #     )
+        # )
+        sleep(5)
+        submit_button = self.driver.find_element_by_xpath("//button[@class='btn btn-submit-custom']")
         submit_button.click()
+        # WebDriverWait(self.driver, 10).until(
+        #     EC.presence_of_element_located((By.ID, "id_title"))
+        # )
+        sleep(5)
+        body = self.driver.find_element_by_id("post-body").text
+        # self.assertIsNotNone(body)
+        print(body)
+        self.assertContains(body, "My cat did not come home.")
 
-        WebDriverWait(self.driver, 10).until(
-            EC.presence_of_element_located((By.ID, "id_title"))
-        )
-        self.assertIsNotNone(self.driver.find_elements_by_class_name('//*[contains(text(), "My cat did not come home.")]'))
+        
