@@ -136,6 +136,3 @@
 #         self.assertFalse(
 #             "Edit" in str(response.content)
 #         )
-
-
-
