@@ -10,8 +10,8 @@ from selenium.webdriver.support.ui import WebDriverWait, Select
 from selenium.webdriver.support import expected_conditions as EC  # noqa: N812
 from post.models import Category
 
-class SeleniumTestPost(StaticLiveServerTestCase):
 
+class SeleniumTestPost(StaticLiveServerTestCase):
     def setUp(self):
         options = webdriver.ChromeOptions()
         if os.getenv("CI"):
@@ -20,10 +20,12 @@ class SeleniumTestPost(StaticLiveServerTestCase):
             options.add_argument("--disable-gpu")
             self.driver = webdriver.Chrome(options=options)
         else:
-            self.driver = webdriver.Chrome(ChromeDriverManager().install(), options=options)
+            self.driver = webdriver.Chrome(
+                ChromeDriverManager().install(), options=options
+            )
 
         self.user = User.objects.create_user(username="testuser1", password="password")
-        self.category = Category.objects.create(name='Lost')
+        self.category = Category.objects.create(name="Lost")
 
     def tearDown(self):
         self.user.delete()
@@ -35,7 +37,9 @@ class SeleniumTestPost(StaticLiveServerTestCase):
         username_field.send_keys("testuser1")
         password_field = self.driver.find_element_by_name("password")
         password_field.send_keys("password")
-        login_button = self.driver.find_element_by_xpath("//button[@class='btn btn-submit-custom']")
+        login_button = self.driver.find_element_by_xpath(
+            "//button[@class='btn btn-submit-custom']"
+        )
         login_button.click()
         add_post_button = WebDriverWait(self.driver, 10).until(
             EC.presence_of_element_located(
@@ -59,7 +63,9 @@ class SeleniumTestPost(StaticLiveServerTestCase):
         username_field.send_keys("testuser1")
         password_field = self.driver.find_element_by_name("password")
         password_field.send_keys("password")
-        login_button = self.driver.find_element_by_xpath("//button[@class='btn btn-submit-custom']")
+        login_button = self.driver.find_element_by_xpath(
+            "//button[@class='btn btn-submit-custom']"
+        )
         login_button.click()
         add_post_button = WebDriverWait(self.driver, 10).until(
             EC.presence_of_element_located(
@@ -74,9 +80,9 @@ class SeleniumTestPost(StaticLiveServerTestCase):
             EC.presence_of_element_located((By.ID, "id_title"))
         )
         post_title = self.driver.find_element_by_css_selector("#id_title")
-        post_title.send_keys('Missing cat')
-        post_body = self.driver.find_element_by_name('body')
-        post_body.send_keys('My cat did not come home.')
+        post_title.send_keys("Missing cat")
+        post_body = self.driver.find_element_by_name("body")
+        post_body.send_keys("My cat did not come home.")
 
         select = Select(self.driver.find_element_by_name("category"))
         select.select_by_index(1)
@@ -90,7 +96,9 @@ class SeleniumTestPost(StaticLiveServerTestCase):
         #     )
         # )
         sleep(5)
-        submit_button = self.driver.find_element_by_xpath("//button[@class='btn btn-submit-custom']")
+        submit_button = self.driver.find_element_by_xpath(
+            "//button[@class='btn btn-submit-custom']"
+        )
         submit_button.click()
         # WebDriverWait(self.driver, 10).until(
         #     EC.presence_of_element_located((By.ID, "id_title"))
@@ -108,7 +116,9 @@ class SeleniumTestPost(StaticLiveServerTestCase):
         username_field.send_keys("testuser1")
         password_field = self.driver.find_element_by_name("password")
         password_field.send_keys("password")
-        login_button = self.driver.find_element_by_xpath("//button[@class='btn btn-submit-custom']")
+        login_button = self.driver.find_element_by_xpath(
+            "//button[@class='btn btn-submit-custom']"
+        )
         login_button.click()
         add_post_button = WebDriverWait(self.driver, 10).until(
             EC.presence_of_element_located(
@@ -123,9 +133,9 @@ class SeleniumTestPost(StaticLiveServerTestCase):
             EC.presence_of_element_located((By.ID, "id_title"))
         )
         post_title = self.driver.find_element_by_css_selector("#id_title")
-        post_title.send_keys('Missing dog')
-        post_body = self.driver.find_element_by_name('body')
-        post_body.send_keys('My dog did not come home.')
+        post_title.send_keys("Missing dog")
+        post_body = self.driver.find_element_by_name("body")
+        post_body.send_keys("My dog did not come home.")
 
         select = Select(self.driver.find_element_by_name("category"))
         select.select_by_index(1)
@@ -139,7 +149,9 @@ class SeleniumTestPost(StaticLiveServerTestCase):
         #     )
         # )
         sleep(5)
-        submit_button = self.driver.find_element_by_xpath("//button[@class='btn btn-submit-custom']")
+        submit_button = self.driver.find_element_by_xpath(
+            "//button[@class='btn btn-submit-custom']"
+        )
         submit_button.click()
         # WebDriverWait(self.driver, 10).until(
         #     EC.presence_of_element_located((By.ID, "id_title"))
@@ -148,10 +160,10 @@ class SeleniumTestPost(StaticLiveServerTestCase):
         title = self.driver.find_element_by_id("post-title")
         title.click()
 
-        delete_button = self.driver.find_element_by_xpath("//button[@class='btn btn-danger-custom btn-sm']")
+        delete_button = self.driver.find_element_by_xpath(
+            "//a[@class='btn btn-danger-custom btn-sm']"
+        )
 
         # self.assertIsNotNone(body)
         # print(body)
         # self.assertEqual(body, "My dog did not come home.")
-
-        
