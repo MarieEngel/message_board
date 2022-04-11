@@ -6,6 +6,7 @@ from django.contrib.auth.models import User
 #     city = models.CharField(max_length=100)
 #     postal_code = models.CharField(max_length=4)
 
+
 class Category(models.Model):
     name = models.CharField(max_length=100)
 
@@ -13,7 +14,7 @@ class Category(models.Model):
         verbose_name_plural = "categories"
 
     def __repr__(self) -> str:
-        return f'Category(name={self.name})'
+        return f"Category(name={self.name})"
 
     def __str__(self) -> str:
         return self.name
@@ -24,7 +25,7 @@ class Post(models.Model):
     photo = models.ImageField(null=True, blank=True, upload_to="images/")
     body = models.TextField()
     user = models.ForeignKey(User, on_delete=models.CASCADE)
-    category =  models.ForeignKey(Category, on_delete=models.CASCADE)
+    category = models.ForeignKey(Category, on_delete=models.CASCADE)
     created_at = models.DateTimeField(auto_now_add=True)
     modified_at = models.DateTimeField(auto_now=True)
     solved_at = models.DateTimeField(null=True, blank=True)
@@ -41,4 +42,4 @@ class Comment(models.Model):
     modified_at = models.DateTimeField(auto_now=True)
 
     def __str__(self) -> str:
-        return '%s - %s' % (self.post.title, self.user.username)
+        return "%s - %s" % (self.post.title, self.user.username)

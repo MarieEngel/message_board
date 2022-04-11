@@ -1,10 +1,11 @@
 from django.contrib.auth.decorators import login_required
+from django.http import HttpResponse
 from django.shortcuts import render, redirect, get_object_or_404
 
 from .forms import AddPostForm, CommentForm, SearchForm
 
 from django.contrib.auth.mixins import PermissionRequiredMixin
-
+from django.core.exceptions import PermissionDenied
 from .models import Post, Comment
 from django.urls import reverse_lazy
 from django.views.generic import CreateView, DeleteView, UpdateView
@@ -17,6 +18,7 @@ def home(request):
     post_list = Post.objects.all().order_by("-id")
     context = {"post_list": post_list}
     return render(request, "post/home.html", context)
+
 
 @login_required
 def post(request, id):
@@ -49,11 +51,13 @@ def add_post(request):
 @login_required
 def delete_post(request, id):
     post = get_object_or_404(Post, id=id)
-    if request.method == "POST":
-        post.delete()
-        return redirect("/")
-
-    return render(request, "post/delete_post.html", {'post': post})
+    if not request.user == post.user:
+        raise PermissionDenied
+    else:
+        if request.method == "POST":
+            post.delete()
+            return redirect("/")
+    return render(request, "post/delete_post.html", {"post": post})
 
 
 @login_required
@@ -62,13 +66,17 @@ def update_post(request, id):
     form = None
     post = get_object_or_404(Post, id=id)
     form = AddPostForm(request.POST or None, request.FILES or None, instance=post)
-    if request.method == "POST":
-        if form.is_valid():
-            form.save()
-            success_message = "You have successfully updated your post."
-            return redirect("/")
+    if not request.user == post.user:
+        raise PermissionDenied
+    else:
+        if request.method == "POST":
+            if form.is_valid():
+                form.save()
+                success_message = "You have successfully updated your post."
+                return redirect("/")
     context = {"form": form, "post": post, "success_message": success_message}
     return render(request, "post/update_post.html", context)
+
 
 @login_required
 def search(request):
@@ -80,11 +88,10 @@ def search(request):
         if is_valid:
             search_term = request.GET["query"]
             results = Post.objects.filter(
-                Q(title__search=search_term)
-                | Q(body__search=search_term)
+                Q(title__search=search_term) | Q(body__search=search_term)
             )
             category = form.cleaned_data.get("categories")
-            if category == 'All':
+            if category == "All":
                 search_results = results
             else:
                 search_results = results.filter(category__name=category)
@@ -104,16 +111,16 @@ def search(request):
     return render(request, "post/search.html", context)
 
 
-
 class BelongsToTheUserMixin(PermissionRequiredMixin):
     """Mixin for views to only allow the owners of the object to access them"""
+
     def has_permission(self):
         return self.request.user == self.get_object().user
 
 
 class RedirectToPostMixin:
     def get_success_url(self):
-        url = reverse_lazy('post:post', kwargs={'id': self.object.post_id})
+        url = reverse_lazy("post:post", kwargs={"id": self.object.post_id})
         if not isinstance(self, DeleteView):
             url += f"#comment-{self.object.id}"
         return url
@@ -122,25 +129,29 @@ class RedirectToPostMixin:
 class AddCommentView(RedirectToPostMixin, LoginRequiredMixin, CreateView):
     model = Comment
     form_class = CommentForm
-    template_name = 'post/add_comment.html'
+    template_name = "post/add_comment.html"
 
     def form_valid(self, form):
-        form.instance.post_id = self.kwargs['pk']
+        form.instance.post_id = self.kwargs["pk"]
         form.instance.user = self.request.user
         return super().form_valid(form)
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context["post"] = Post.objects.filter(pk=self.kwargs['pk']).first()
+        context["post"] = Post.objects.filter(pk=self.kwargs["pk"]).first()
         return context
 
 
-class DeleteCommentView(RedirectToPostMixin, LoginRequiredMixin, BelongsToTheUserMixin, DeleteView):
+class DeleteCommentView(
+    RedirectToPostMixin, LoginRequiredMixin, BelongsToTheUserMixin, DeleteView
+):
     model = Comment
-    template_name = 'post/delete_comment.html'
+    template_name = "post/delete_comment.html"
 
 
-class UpdateCommentView(RedirectToPostMixin, LoginRequiredMixin, BelongsToTheUserMixin, UpdateView):
+class UpdateCommentView(
+    RedirectToPostMixin, LoginRequiredMixin, BelongsToTheUserMixin, UpdateView
+):
     model = Comment
     template_name = 'post/update_comment.html'
     fields = ['body']
