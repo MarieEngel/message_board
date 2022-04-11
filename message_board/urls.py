@@ -24,6 +24,8 @@ urlpatterns = [
     path("", post_views.home, name="home"),
     path('post/', include("post.urls")),
     path('user/', include("user.urls")),
+    path('map/', include("map.urls")),
+   
 ]
 
 if settings.DEBUG:

@@ -38,6 +38,11 @@
                                aria-current="page"
                                href="{% url 'post:add-post' %}">Add a Post</a>
                         </li>
+                        <li class="nav-item">
+                            <a class="nav-link active"
+                               aria-current="page"
+                               href="{% url 'map:default' %}">Energy Academy Location</a>
+                        </li>
                     </ul>
                     <form class="d-flex" action="{% url "post:search" %}">
                         {{search_form}}
