@@ -62,4 +62,3 @@ jobs:
           heroku_api_key: ${{secrets.HEROKU_API_KEY}}
           heroku_app_name: "limitless-woodland-23532" #Must be unique in Heroku
           heroku_email: "marieengel2@yahoo.de"
-
