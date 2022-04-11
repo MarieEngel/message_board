@@ -153,5 +153,15 @@ class UpdateCommentView(
     RedirectToPostMixin, LoginRequiredMixin, BelongsToTheUserMixin, UpdateView
 ):
     model = Comment
-    template_name = "post/update_comment.html"
-    fields = ["body"]
+    template_name = 'post/update_comment.html'
+    fields = ['body']
+
+
+def entry_not_found(request, exception, template_name='post/404.html'):
+    return render(request, template_name, status=404)
+
+def permission_denied(request, exception, template_name='post/403.html'):
+    return render(request, template_name, status=403)
+
+def server_error(request, template_name='post/500.html'):
+    return render(request, template_name, status=500)
