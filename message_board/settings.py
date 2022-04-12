@@ -189,14 +189,17 @@ if os.environ.get("GITHUB_WORKFLOW"):
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
-AWS_S3_FILE_OVERWRITE = False
+if not os.environ.get("GITHUB_WORKFLOW"):
+    AWS_S3_FILE_OVERWRITE = False
 
-AWS_DEFAULT_ACL = None
+    AWS_DEFAULT_ACL = None
 
-DEFAULT_FILE_STORAGE = "storages.backends.s3boto3.S3Boto3Storage"
-AWS_STORAGE_BUCKET_NAME = "samso-bucket"
-AWS_S3_SIGNATURE_VERSION = "s3v4"
-AWS_S3_REGION_NAME = "eu-central-1"
+    DEFAULT_FILE_STORAGE = "storages.backends.s3boto3.S3Boto3Storage"
+    AWS_STORAGE_BUCKET_NAME = "samso-bucket"
+    AWS_S3_SIGNATURE_VERSION = "s3v4"
+    AWS_S3_REGION_NAME = "eu-central-1"
+else:
+    print("I am not in S3 :)")
 
 django_heroku.settings(locals())
 
