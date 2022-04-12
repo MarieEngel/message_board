@@ -24,7 +24,12 @@ urlpatterns = [
     path("", post_views.home, name="home"),
     path("post/", include("post.urls")),
     path("user/", include("user.urls")),
+    path("map/", include("map.urls")),
 ]
 
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+
+handler404 = "post.views.entry_not_found"
+handler403 = "post.views.permission_denied"
+handler500 = "post.views.server_error"
