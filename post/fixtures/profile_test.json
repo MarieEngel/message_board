@@ -1,0 +1,26 @@
+[
+{
+  "model": "user.profile",
+  "pk": 1,
+  "fields": {
+    "user": 1,
+    "image": "profile_pics/bowie.jpg"
+  }
+},
+{
+  "model": "user.profile",
+  "pk": 2,
+  "fields": {
+    "user": 2,
+    "image": "profile_pics/dog.jpg"
+  }
+},
+{
+  "model": "user.profile",
+  "pk": 3,
+  "fields": {
+    "user": 3,
+    "image": "profile_pics/default.jpg"
+  }
+}
+]
