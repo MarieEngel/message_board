@@ -179,10 +179,10 @@ STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
 MEDIA_URL = "media/"
 MEDIA_ROOT = os.path.join(BASE_DIR, "media/")
 
-# if os.environ.get("GITHUB_WORKFLOW"):
-#     print('I am in testing workflow enviroment :)')
-#     MEDIA_URL = "tests/test_pics/"
-#     MEDIA_ROOT = os.path.join(BASE_DIR, "tests/test_pics/")
+if os.environ.get("GITHUB_WORKFLOW"):
+    print("I am in workflow testing of GitHub :)")
+    MEDIA_URL = "tests/test_pics/"
+    MEDIA_ROOT = os.path.join(BASE_DIR, "tests/test_pics/")
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.0/ref/settings/#default-auto-field
