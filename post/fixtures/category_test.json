@@ -1,0 +1,44 @@
+[
+{
+  "model": "post.category",
+  "pk": 1,
+  "fields": {
+    "name": "Lost"
+  }
+},
+{
+  "model": "post.category",
+  "pk": 2,
+  "fields": {
+    "name": "Found"
+  }
+},
+{
+  "model": "post.category",
+  "pk": 3,
+  "fields": {
+    "name": "Event"
+  }
+},
+{
+  "model": "post.category",
+  "pk": 4,
+  "fields": {
+    "name": "Borrow"
+  }
+},
+{
+  "model": "post.category",
+  "pk": 5,
+  "fields": {
+    "name": "Lent"
+  }
+},
+{
+  "model": "post.category",
+  "pk": 6,
+  "fields": {
+    "name": "Exchange"
+  }
+}
+]
