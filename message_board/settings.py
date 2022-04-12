@@ -180,6 +180,7 @@ MEDIA_URL = "media/"
 MEDIA_ROOT = os.path.join(BASE_DIR, "media/")
 
 if os.environ.get("GITHUB_WORKFLOW"):
+    print("I am in workflow testing of GitHub :)")
     MEDIA_URL = "test/test_pics/"
     MEDIA_ROOT = os.path.join(BASE_DIR, "test/test_pics/")
 
