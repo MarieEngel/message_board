@@ -181,8 +181,8 @@ MEDIA_ROOT = os.path.join(BASE_DIR, "media/")
 
 if os.environ.get("GITHUB_WORKFLOW"):
     print("I am in workflow testing of GitHub :)")
-    MEDIA_URL = "test/test_pics/"
-    MEDIA_ROOT = os.path.join(BASE_DIR, "test/test_pics/")
+    MEDIA_URL = "tests/test_pics/"
+    MEDIA_ROOT = os.path.join(BASE_DIR, "tests/test_pics/")
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.0/ref/settings/#default-auto-field
