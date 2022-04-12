@@ -1,7 +1,7 @@
 from django.test import TestCase
 
 
-class CommentTestCase(TestCase):
+class ProfileTestCase(TestCase):
     fixtures = [
         "user_test.json",
         "profile_test.json",
