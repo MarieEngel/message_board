@@ -4,7 +4,7 @@
   "pk": 1,
   "fields": {
     "title": "Has anybody seen my cow???",
-    "photo": "images/cow.jpg",
+    "photo": "",
     "body": "My lovely cow is missing. She was last seen eating grass on my backyard at 12:30 today (31/03).\r\nPlease!! Help me find her!\r\nFree fresh milk for the finder! 🥛🐄",
     "user": 1,
     "category": 1,
@@ -32,7 +32,7 @@
   "pk": 3,
   "fields": {
     "title": "My cow is lost again 😭!! HELP!!",
-    "photo": "images/cow.jpg",
+    "photo": "",
     "body": "Help!!",
     "user": 1,
     "category": 1,
