@@ -1,5 +1,9 @@
 {% extends 'post/base.html' %}
-{% block seo %}<meta name="description" content="On this page you can add a new post.">{% endblock %}
+{% block seo %}
+    <meta name="description"
+          property="og:description"
+          content="On this page you can add a new post.">
+{% endblock %}
 {% block title %}Add a Post{% endblock %}
 {% block content %}
     {% load crispy_forms_tags %}
