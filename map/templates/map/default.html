@@ -1,8 +1,11 @@
 {% extends 'post/base.html' %}
-
+{% block title %}Map{% endblock %}
+{% block seo %}
+    <meta name="description"
+          content="On this page you find a map of the island of Samsø marking the location of the Energy Academy.">
+{% endblock %}
 {% block content %}
-
-<style>
+    <style>
   /* Always set the map height explicitly to define the size of t
        * element that contains the map. */
       #map {
@@ -15,10 +18,8 @@
         padding: 0;
       }
     </style>
-  
     <div id="map"></div>
     <script>
-      
       var map;
       var Marker;
       var infoWindow;
@@ -27,7 +28,7 @@
           center: {lat: 55.8980, lng: 10.6223},
           zoom: 11
            });
-      
+
       marker = new google.maps.Marker({
         position:{lat:55.832113 , lng:10.591632},
         map:map
@@ -39,10 +40,8 @@
       infoWindow.open(map, marker);
     });
     }
-    // 
+    //
 
     </script>
-    <script src="https://maps.googleapis.com/maps/api/js?
-key=AIzaSyBPR88unXRLKLEz3pK3soTyZpdQYI4hj6E&callback=initMap"
-    async defer></script>
-  {% endblock %}
+    <script src="https://maps.googleapis.com/maps/api/js? key=AIzaSyBPR88unXRLKLEz3pK3soTyZpdQYI4hj6E&callback=initMap" async defer></script>
+{% endblock %}

@@ -1,72 +1,89 @@
 {% extends 'post/base.html' %}
 {% block title %}{{ post.title }}{% endblock %}
+{% block seo %}
+    <meta name="description"
+          content="On this detail page you find a post with complete text.">
+{% endblock %}
 {% block content %}
-
-<div class="container mt-5">
-    <div class="row d-flex justify-content-center">
-        <div class="col-md-8">
-            <div class="card text-center">
-                <div class="card-header">
-                    <h3 class="text-center">{{ post.title }}</h3>
-                </div>
-                <div class="card-body post-card">
-                {% if post.photo %}
-                    <img src="{{ post.photo.url }}" class="img-fluid rounded-start" alt="...">
-                {% endif %}
-                <p class="card-text my-3">{{ post.body }}</p>
-                {% if user.is_authenticated %}
-                    {% if user.id == post.user.id %}
-                        <a href="{% url 'post:update-post' post.id %}" class="btn btn-success-custom btn-sm" role="button">Edit</a>
-                        <a href="{% url 'post:delete-post' post.id %}" class="btn btn-danger-custom btn-sm" role="button">Delete</a>
-                    {% endif %} 
-                {% endif %}
-                </div>
-                <div class="card-footer text-muted">
-                    <small class="text-muted">
-                        {{ post.user }} - {{ post.created_at|date:"d/m/Y H:i" }}
-                    </small>
+    <div class="container mt-5">
+        <div class="row d-flex justify-content-center">
+            <div class="col-md-8">
+                <div class="card text-center">
+                    <div class="card-header">
+                        <h3 class="text-center">{{ post.title }}</h3>
+                    </div>
+                    <div class="card-body post-card">
+                        {% if post.photo %}<img src="{{ post.photo.url }}" class="img-fluid rounded-start" alt="...">{% endif %}
+                        <p class="card-text my-3">
+                            {{ post.body }}
+                        </p>
+                        {% if user.is_authenticated %}
+                            {% if user.id == post.user.id %}
+                                <a href="{% url 'post:update-post' post.id %}"
+                                   class="btn btn-success-custom btn-sm"
+                                   role="button">Edit</a>
+                                <a href="{% url 'post:delete-post' post.id %}"
+                                   class="btn btn-danger-custom btn-sm"
+                                   role="button">Delete</a>
+                            {% endif %}
+                        {% endif %}
+                    </div>
+                    <div class="card-footer text-muted">
+                        <small class="text-muted">{{ post.user }} - {{ post.created_at|date:"d/m/Y H:i" }}</small>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
-
-<br/>
-<hr>
-<div class="container mt-5">
-    <h5 class="my-3 text-center">Comments...</h5>
-{% if not post.comments %}
-   <p class="text-center">No Comments Yet...</p>
-
-{% else %}
-<div class="row d-flex justify-content-center">
-    <div class="col-md-7">
-  {% for comment in post.comments.all %}
-  <div class="container my-2" id="comment-{{ comment.pk }}">
-        <div class="card">
-            <div class="card-header">
-              <img src="{{ comment.user.profile.image.url }}" alt="avatar" width="32" height="32" class="rounded-circle">
-                {{ comment.user.username }} - {{ comment.created_at|date:"d/m/Y H:i" }}
-            </div>
-            <div class="card-body comment-card">
-            <p class="card-text">{{ comment.body|linebreaks }}</p>
-
-            {% if user.is_authenticated and user == comment.user %}
-            <a href="{% url 'post:update-comment' post.id comment.id %}" class="btn btn-success-custom btn-sm" role="button">Edit</a>
-            <a href="{% url 'post:delete-comment' post.id comment.id %}" class="btn btn-danger-custom btn-sm" role="button">Delete</a>
+        <br />
+        <hr>
+        <div class="container mt-5">
+            <h5 class="my-3 text-center">Comments...</h5>
+            {% if not post.comments %}
+                <p class="text-center">
+                    No Comments Yet...
+                </p>
+            {% else %}
+                <div class="row d-flex justify-content-center">
+                    <div class="col-md-7">
+                        {% for comment in post.comments.all %}
+                            <div class="container my-2" id="comment-{{ comment.pk }}">
+                                <div class="card">
+                                    <div class="card-header">
+                                        <img src="{{ comment.user.profile.image.url }}"
+                                             alt="avatar"
+                                             width="32"
+                                             height="32"
+                                             class="rounded-circle">
+                                        {{ comment.user.username }} - {{ comment.created_at|date:"d/m/Y H:i" }}
+                                    </div>
+                                    <div class="card-body comment-card">
+                                        <p class="card-text">
+                                            {{ comment.body|linebreaks }}
+                                        </p>
+                                        {% if user.is_authenticated and user == comment.user %}
+                                            <a href="{% url 'post:update-comment' post.id comment.id %}"
+                                               class="btn btn-success-custom btn-sm"
+                                               role="button">Edit</a>
+                                            <a href="{% url 'post:delete-comment' post.id comment.id %}"
+                                               class="btn btn-danger-custom btn-sm"
+                                               role="button">Delete</a>
+                                        {% endif %}
+                                    </div>
+                                </div>
+                            </div>
+                        {% endfor %}
+                    </div>
+                </div>
             {% endif %}
-
-    </div>
-</div>
-</div>
-{% endfor %} 
-</div>
-</div>
- {% endif %}   
-<br/>
- <a href="{% url 'post:add_comment' post.pk %}"><p class="text-center" >Add Comment</p></a>
-<br/>
-<br />
-<hr>
-<a href="{% url "home" %}">Back to the latest messages</a>
-</div>
-{% endblock %}
+            <br />
+            <a href="{% url 'post:add_comment' post.pk %}">
+                <p class="text-center">
+                    Add Comment
+                </p>
+            </a>
+            <br />
+            <br />
+            <hr>
+            <a href="{% url "home" %}">Back to the latest messages</a>
+        </div>
+    {% endblock %}
