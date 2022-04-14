@@ -1,18 +1,25 @@
 {% extends 'post/base.html' %}
+{% block title %}Delete a Comment{% endblock %}
 {% block content %}
-<div class="container">
-    <div class="row d-flex justify-content-center mt-5">
-        <div class="col col-lg-8 border form">
-            <form method="post" enctype="multipart/form-data">
-                {% csrf_token %}
-                <fieldset>
-                    <legend class="border-bottom mb-4 px-2">Delete comment: <small class="text-muted">{{ comment.body|truncatechars:30 }}</small></legend>
-                    <p>Are you sure you want to delete this comment?</p>
-                    <button type="submit" class="btn btn-sm btn-danger-custom">Yes, delete</button>
-                    <a href="{% url 'post:post' comment.post.id %}" class="btn btn-sm btn-cancel-custom" role="button">Cancel</a>
-                </fieldset>
-            </form>
+    <div class="container">
+        <div class="row d-flex justify-content-center mt-5">
+            <div class="col col-lg-8 border form">
+                <form method="post" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    <fieldset>
+                        <legend class="border-bottom mb-4 px-2">
+                            Delete comment: <small class="text-muted">{{ comment.body|truncatechars:30 }}</small>
+                        </legend>
+                        <p>
+                            Are you sure you want to delete this comment?
+                        </p>
+                        <button type="submit" class="btn btn-sm btn-danger-custom">Yes, delete</button>
+                        <a href="{% url 'post:post' comment.post.id %}"
+                           class="btn btn-sm btn-cancel-custom"
+                           role="button">Cancel</a>
+                    </fieldset>
+                </form>
+            </div>
         </div>
     </div>
-</div>
 {% endblock content %}
