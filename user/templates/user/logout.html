@@ -1,15 +1,18 @@
 {% extends 'post/base.html' %}
-
-
+{% block title %}Logout{% endblock %}
+{% block seo %}
+    <meta name="description"
+          content="This page displays that you have been logged out and can login again.">
+{% endblock %}
 {% block content %}
-<div class="container">
-    <article>
-        <h2>You have been logged out</h2>
-        <div class="border-top pt-3">
-            <small class="text-muted">
-                <a href="{% url 'user:login' %}">Log in again</a>
-            </small>
-        </div>
-    </article>
-</div>
+    <div class="container">
+        <article>
+            <h2>You have been logged out</h2>
+            <div class="border-top pt-3">
+                <small class="text-muted">
+                    <a href="{% url 'user:login' %}">Log in again</a>
+                </small>
+            </div>
+        </article>
+    </div>
 {% endblock %}
