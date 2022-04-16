@@ -25,7 +25,7 @@ class HomePageTest(TestCase):
           password="password")
           
           response=self.client.get(self.home_url)
-          self.assertEquals(response.status_code, 301)
+          self.assertEquals(response.status_code, 200)
           
 
 
