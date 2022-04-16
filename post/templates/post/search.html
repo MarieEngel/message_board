@@ -1,7 +1,10 @@
 {% extends "post/base.html" %}
 {% block title %}Search Results{% endblock %}
-{% block seo %}<meta name="description"
-      content="On this page you find the results for your search.">{% endblock %}
+{% block seo %}
+    <meta name="description"
+          property="og:description"
+          content="On this page you find the results for your search.">
+{% endblock %}
 {% block header %}Search{% endblock %}
 {% block content %}
     <div class="container mt-5">
