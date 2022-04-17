@@ -11,6 +11,7 @@ from django.urls import reverse_lazy
 from django.views.generic import CreateView, DeleteView, UpdateView
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.db.models import Q
+import folium
 
 # Create your views here.
 @login_required
@@ -23,7 +24,22 @@ def home(request):
 @login_required
 def post(request, id):
     post = Post.objects.get(id=id)
-    context = {"post": post}
+    m = None
+    if post.latitude:
+        lat = post.latitude
+        lon = post.longitude
+        if post.postcode:
+            popup = f"{post.city}, {post.postcode}"
+        else:
+            popup = f"{post.city}"
+        m = folium.Map(location=[lat, lon], zoom_start=16)
+        folium.Marker(
+            location=[lat, lon],
+            tooltip="Click for more",
+            popup=popup,
+        ).add_to(m)
+        m = m._repr_html_()
+    context = {"post": post, "map": m}
     return render(request, "post/post.html", context)
 
 
