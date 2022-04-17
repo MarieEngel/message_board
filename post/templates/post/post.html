@@ -18,6 +18,38 @@
                         <p class="card-text my-3">
                             {{ post.body }}
                         </p>
+
+                        {% if post.latitude %}
+                        <!-- Button trigger modal -->
+                        <button type="button" class="btn btn-submit-custom btn-sm" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+                            Show location
+                        </button>
+                        <!-- Modal -->
+                        <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                            <div class="modal-dialog modal-dialog-centered modal-lg modal-fullscreen-sm-down">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                <h5 class="modal-title" id="staticBackdropLabel">Location</h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body">
+                                    <div class="container">
+                                        <div class="row">
+                                          <div class="col">
+                                              {{ map|safe }}
+                                          </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                </div>
+                            </div>
+                            </div>
+                        </div>
+
+                        {% endif %}
+
                         {% if user.is_authenticated %}
                             {% if user.id == post.user.id %}
                                 <a href="{% url 'post:update-post' post.id %}"
@@ -87,4 +119,7 @@
             <hr>
             <a href="{% url "home" %}">Back to the latest messages</a>
         </div>
+
+        {% load static %}
+<script src="{% static 'js/main.js' %}"></script>
     {% endblock %}
