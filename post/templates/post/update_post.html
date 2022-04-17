@@ -10,6 +10,13 @@
     <div class="container">
         <div class="row d-flex justify-content-center mt-5">
             <div class="col col-lg-8 border form">
+
+                <div class="container">
+                    <p>You can update your location by clicking Update location.</p>
+                    <p class="location text-error"></p>
+                    <button class="find-location" role="button">Update location</button>
+                </div>
+            </br>
                 <form method="post" enctype="multipart/form-data">
                     {% csrf_token %}
                     <fieldset>
