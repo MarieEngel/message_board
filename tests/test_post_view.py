@@ -14,19 +14,18 @@ class HomePageTest(TestCase):
       "comment_test.json",
         ]
         
-      def setUp(self):
-        self.client=Client()
-        self.home_url = reverse_lazy
         
         
       def test_home(self):
           '''test homepage, post home view'''
-          self.client.login(username="anna", 
+          self.client.login(username="anya", 
           password="password")
-          
-          response=self.client.get(self.home_url)
-          self.assertEquals(response.status_code, 200)
-          
+          response=self.client.get("")
+          self.assertEqual(response.
+          status_code, 200)   
+         
+         
+         
 
 
       
