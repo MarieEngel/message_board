@@ -1,21 +1,21 @@
-const getLocation = () => {
+const getLocation = async () => {
     const location = document.querySelector('.location');
     const lat = document.querySelector('.latitude');
     const lon = document.querySelector('.longitude');
     const postcode = document.querySelector('.postcode');
     const city = document.querySelector('.city');
 
-    const success = (position) => {
+    const success = async (position) => {
 
         const latitude = position.coords.latitude;
         const longitude = position.coords.longitude;
 
-        const API_KEY = 'AIzaSyBPR88unXRLKLEz3pK3soTyZpdQYI4hj6E'
+        const API_KEY = 'AIzaSyBPR88unXRLKLEz3pK3soTyZpdQYI4hj6E';
 
-        const geocodingApiUrl = `https://maps.googleapis.com/maps/api/geocode/json?latlng=${latitude},${longitude}&key=${API_KEY}`
-        fetch(geocodingApiUrl)
-        .then(response => response.json())
-        .then(data => {
+        try {
+            const geocodingApiUrl = `https://maps.googleapis.com/maps/api/geocode/json?latlng=${latitude},${longitude}&key=${API_KEY}`;
+            const response = await fetch(geocodingApiUrl);
+            const data = await response.json();
             lat.value = latitude
             lon.value = longitude
             let parts = data.results[0].address_components;
@@ -27,8 +27,9 @@ const getLocation = () => {
                     city.value = part.long_name
                 }
             });
-        })
-        .catch(err => console.error(err));
+        } catch (ex) {
+            console.log(ex);
+        }
     }
 
     const error = () => {
