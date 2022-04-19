@@ -231,3 +231,5 @@ try:
     from local_settings import *  # noqa
 except ImportError:
     pass
+
+print(SECRET_KEY)
