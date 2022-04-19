@@ -180,7 +180,6 @@ MEDIA_URL = "media/"
 MEDIA_ROOT = os.path.join(BASE_DIR, "media/")
 
 if os.environ.get("GITHUB_WORKFLOW"):
-    print("Hi from GitHub Workflow!")
     MEDIA_URL = "tests/test_pics/"
     MEDIA_ROOT = os.path.join(BASE_DIR, "tests/test_pics/")
 
@@ -198,8 +197,6 @@ if not os.environ.get("GITHUB_WORKFLOW"):
     AWS_STORAGE_BUCKET_NAME = "samso-bucket"
     AWS_S3_SIGNATURE_VERSION = "s3v4"
     AWS_S3_REGION_NAME = "eu-central-1"
-else:
-    print("I am not in S3 :)")
 
 django_heroku.settings(locals())
 
