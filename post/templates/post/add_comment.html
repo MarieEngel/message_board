@@ -1,11 +1,6 @@
 {% extends 'post/base.html' %}
 {% block title %}New Comment{% endblock %}
-{% block seo %}
-    <meta property="og:title" content="New Comment" />
-    <meta name="description"
-          property="og:description"
-          content="On this page you can add a new comment to a post.">
-{% endblock %}
+{% block og_title %}- Add a Comment{% endblock %}
 {% block content %}
     {% load crispy_forms_tags %}
     <div class="container">
