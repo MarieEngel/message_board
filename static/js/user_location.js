@@ -30,10 +30,10 @@ const getLocation = async () => {
                 if (part.types.includes("locality")) {
                     city.value = part.long_name;
                 }
-                if (part.types.includes("locality")) {
+                if (part.types.includes("route")) {
                     street.value = part.long_name;
                 }
-                if (part.types.includes("locality")) {
+                if (part.types.includes("street_number")) {
                     street_number.value = part.long_name;
                 }
             }
@@ -49,6 +49,9 @@ const getLocation = async () => {
         lon.value = null;
         postcode.value = null;
         city.value = null;
+        street.value = null;
+        street_number.value = null;
+
 
     }
 
