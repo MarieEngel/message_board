@@ -13,6 +13,17 @@ class UserRegisterForm(UserCreationForm):
         fields = ["username", "email", "password1", "password2"]
 
 
+class ProfileRegisterForm(forms.ModelForm):
+    class Meta:
+        model = models.Profile
+        exclude = ["user"]
+        widgets = {
+            "image": forms.FileInput(attrs={"class": "form-control"}),
+            "latitude": forms.HiddenInput(attrs={"class": "form-control latitude"}),
+            "longitude": forms.HiddenInput(attrs={"class": "form-control longitude"}),
+        }
+
+
 # Create a UserUpdateForm to update username and email
 class UserUpdateForm(forms.ModelForm):
     email = forms.EmailField()
