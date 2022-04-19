@@ -20,6 +20,8 @@ class ProfileTestCase(TestCase):
                 "password1": "new_password",
                 "password2": "new_password",
                 "email": "test@email.com",
+                "postcode": "8305",
+                "city": "Berlin",
                 "_save": "SAVE",
             },
         )
@@ -29,6 +31,23 @@ class ProfileTestCase(TestCase):
         self.client.login(username="new_user", password="new_password")
         response = self.client.get("/")
         self.assertContains(response, "Has anybody seen my cow")
+
+    def test_not_register_with_false_postcode(self):
+        response = self.client.get("/user/register/")
+        self.assertEqual(response.status_code, 200)
+        response = self.client.post(
+            "/user/register/",
+            {
+                "username": "new_user",
+                "password1": "new_password",
+                "password2": "new_password",
+                "email": "test@email.com",
+                "postcode": "8303",
+                "city": "Berlin",
+                "_save": "SAVE",
+            },
+        )
+        self.assertContains(response, "Only people from island Samsø can register")
 
     def test_create_profile_with_registration(self):
         response = self.client.get("/user/register/")
@@ -40,6 +59,8 @@ class ProfileTestCase(TestCase):
                 "password1": "new_password",
                 "password2": "new_password",
                 "email": "test@email.com",
+                "postcode": "8305",
+                "city": "Berlin",
                 "_save": "SAVE",
             },
         )
