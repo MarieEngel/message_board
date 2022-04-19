@@ -44,7 +44,9 @@
                     </div>
                     <div class="col-6 mb-3">
                       <h6>Phone</h6>
+                      {% profile.phone %}
                       <p class="text-muted">{{ profile.phone }}</p>
+                      {% endif %}
                     </div>
                   </div>
                   <div class="row pt-1">
@@ -60,11 +62,15 @@
                   <div class="row pt-1">
                     <div class="col-6 mb-3">
                       <h6>Street</h6>
+                      {% profile.street %}
                       <p class="text-muted">{{ profile.street }}</p>
+                      {% endif %}
                     </div>
                     <div class="col-6 mb-3">
                       <h6>Number</h6>
+                      {% profile.street_number %}
                       <p class="text-muted">{{ profile.street_number }}</p>
+                      {% endif %}
                     </div>
                   </div>
                 </div>
