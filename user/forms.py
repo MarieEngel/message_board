@@ -21,6 +21,12 @@ class ProfileForm(forms.ModelForm):
             "image": forms.FileInput(attrs={"class": "form-control"}),
             "latitude": forms.HiddenInput(attrs={"class": "form-control latitude"}),
             "longitude": forms.HiddenInput(attrs={"class": "form-control longitude"}),
+            "city": forms.TextInput(attrs={"class": "form-control city"}),
+            "postcode": forms.TextInput(attrs={"class": "form-control postcode"}),
+            "street": forms.TextInput(attrs={"class": "form-control street"}),
+            "street_number": forms.NumberInput(
+                attrs={"class": "form-control street_number"}
+            ),
         }
 
 
