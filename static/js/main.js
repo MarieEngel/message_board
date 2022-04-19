@@ -16,28 +16,30 @@ const getLocation = async () => {
             const geocodingApiUrl = `https://maps.googleapis.com/maps/api/geocode/json?latlng=${latitude},${longitude}&key=${API_KEY}`;
             const response = await fetch(geocodingApiUrl);
             const data = await response.json();
-            lat.value = latitude
-            lon.value = longitude
-            let parts = data.results[0].address_components;
-            parts.forEach(part => {
+            lat.value = latitude;
+            lon.value = longitude;
+            const [firstResult, ...rest] = data.results;
+            const parts = firstResult.address_components;
+            for (const part of parts) {
                 if (part.types.includes("postal_code")) {
-                    postcode.value = part.long_name
+                    postcode.value = part.long_name;
                 }
                 if (part.types.includes("locality")) {
-                    city.value = part.long_name
+                    city.value = part.long_name;
                 }
-            });
+            }
+
         } catch (ex) {
             console.log(ex);
         }
     }
 
     const error = () => {
-        location.textContent = 'Your location will not be saved'
-        lat.value = null
-        lon.value = null
-        postcode.value = null
-        city.value = null
+        location.textContent = 'Your location will not be saved';
+        lat.value = null;
+        lon.value = null;
+        postcode.value = null;
+        city.value = null;
 
     }
 
