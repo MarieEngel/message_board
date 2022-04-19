@@ -1,33 +1,36 @@
 {% extends 'post/base.html' %}
+{% block title %}Update a Comment{% endblock %}
+{% block og_title %}- Update a Comment{% endblock %}
 {% block content %}
-{% load crispy_forms_tags %}
-
-<div class="container">
-    {% if user.is_authenticated %}
-        {% if user.id == comment.user.id %}
-        <div class="row d-flex justify-content-center mt-5">
-            <div class="col col-lg-8 border form">
-            <form method="post" enctype="multipart/form-data">
-                {% csrf_token %}
-                <fieldset>
-                    <legend class="border-bottom mb-4 px-2">Edit</legend>
-                    {{ form|crispy }}
-                </fieldset>
-                <div class="form-group">
-                    <button class="btn btn-submit-custom" type="submit">Submit</button>
-                    <a href="{% url 'post:post' comment.post.id %}" class="btn btn-cancel-custom" role="button">Cancel</a>
+    {% load crispy_forms_tags %}
+    <div class="container">
+        {% if user.is_authenticated %}
+            {% if user.id == comment.user.id %}
+                <div class="row d-flex justify-content-center mt-5">
+                    <div class="col col-lg-8 border form">
+                        <form method="post" enctype="multipart/form-data">
+                            {% csrf_token %}
+                            <fieldset>
+                                <legend class="border-bottom mb-4 px-2">
+                                    Edit
+                                </legend>
+                                {{ form|crispy }}
+                            </fieldset>
+                            <div class="form-group">
+                                <button class="btn btn-submit-custom" type="submit">Submit</button>
+                                <a href="{% url 'post:post' comment.post.id %}"
+                                   class="btn btn-cancel-custom"
+                                   role="button">Cancel</a>
+                            </div>
+                        </form>
+                        <div class="border-top pt-3">{{ success_message }}</div>
+                    </div>
                 </div>
-            </form>
-            <div class="border-top pt-3">
-                {{ success_message }}
-            </div>
-            </div>
-        </div>
+            {% else %}
+                You are not allowed here!
+            {% endif %}
         {% else %}
-        You are not allowed here!
+            You are not allowed here!
         {% endif %}
-    {% else %}
-    You are not allowed here!
-    {% endif %}
-</div>
+    </div>
 {% endblock content %}

@@ -26,6 +26,14 @@ class Post(models.Model):
     body = models.TextField()
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     category = models.ForeignKey(Category, on_delete=models.CASCADE)
+    latitude = models.DecimalField(
+        max_digits=22, decimal_places=16, blank=True, null=True
+    )
+    longitude = models.DecimalField(
+        max_digits=22, decimal_places=16, blank=True, null=True
+    )
+    postcode = models.CharField(max_length=8, null=True, blank=True)
+    city = models.CharField(max_length=50, null=True, blank=True)
     created_at = models.DateTimeField(auto_now_add=True)
     modified_at = models.DateTimeField(auto_now=True)
     solved_at = models.DateTimeField(null=True, blank=True)

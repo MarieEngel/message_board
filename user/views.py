@@ -6,27 +6,34 @@ from django.contrib import messages
 from django.urls import reverse
 
 from . import models
-from .forms import UserRegisterForm, UserUpdateForm, ProfileUpdateForm
+from .forms import (
+    UserRegisterForm,
+    UserUpdateForm,
+    ProfileForm,
+)
 
 
 @transaction.atomic
 def register(request):
     if request.method == "POST":
-        form = UserRegisterForm(request.POST)
-        if form.is_valid():
-            form.save()
-            username = form.cleaned_data.get("username")
-            user = User.objects.get(username=username)
-            profile = models.Profile.objects.create(user=user)
-            profile.save()
+        u_form = UserRegisterForm(request.POST)
+        p_form = ProfileForm(request.POST, request.FILES)
 
+        if u_form.is_valid() and p_form.is_valid():
+            u_form.save()
+            username = u_form.cleaned_data.get("username")
+            user = User.objects.get(username=username)
+            profile = p_form.save(commit=False)
+            profile.user = user
+            profile.save()
             messages.success(
                 request, f"Account created for {username}!", fail_silently=True
             )
             return redirect(reverse("user:login"))
     else:
-        form = UserRegisterForm()
-    return render(request, "user/register.html", {"form": form})
+        u_form = UserRegisterForm()
+        p_form = ProfileForm()
+    return render(request, "user/register.html", {"u_form": u_form, "p_form": p_form})
 
 
 @login_required
@@ -36,9 +43,7 @@ def update_profile(request):
         print(request.POST)
 
         u_form = UserUpdateForm(request.POST, instance=request.user)
-        p_form = ProfileUpdateForm(
-            request.POST, request.FILES, instance=request.user.profile
-        )
+        p_form = ProfileForm(request.POST, request.FILES, instance=request.user.profile)
         print(request.FILES)
         if u_form.is_valid() and p_form.is_valid():
             print(request.POST)
@@ -51,7 +56,7 @@ def update_profile(request):
 
     else:
         u_form = UserUpdateForm(instance=request.user)
-        p_form = ProfileUpdateForm(instance=request.user.profile)
+        p_form = ProfileForm(instance=request.user.profile)
 
     context = {"u_form": u_form, "p_form": p_form}
     return render(request, "user/update_profile.html", context)
@@ -59,7 +64,8 @@ def update_profile(request):
 
 @login_required
 def user_profile(request):
-    return render(request, "user/profile.html")
+    profile = models.Profile.objects.get(user=request.user)
+    return render(request, "user/profile.html", {"profile": profile})
 
 
 @login_required

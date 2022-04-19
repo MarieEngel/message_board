@@ -1,0 +1,68 @@
+[
+{
+  "model": "post.comment",
+  "pk": 1,
+  "fields": {
+    "post": 2,
+    "user": 2,
+    "body": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
+    "created_at": "2022-04-04T16:52:25.790Z",
+    "modified_at": "2022-04-04T16:52:25.790Z"
+  }
+},
+{
+  "model": "post.comment",
+  "pk": 2,
+  "fields": {
+    "post": 2,
+    "user": 1,
+    "body": "short comment",
+    "created_at": "2022-04-04T16:52:40.535Z",
+    "modified_at": "2022-04-04T16:52:40.535Z"
+  }
+},
+{
+  "model": "post.comment",
+  "pk": 3,
+  "fields": {
+    "post": 3,
+    "user": 2,
+    "body": "test comment from user 2 to post 3",
+    "created_at": "2022-04-04T16:58:18.754Z",
+    "modified_at": "2022-04-04T16:58:18.754Z"
+  }
+},
+{
+  "model": "post.comment",
+  "pk": 4,
+  "fields": {
+    "post": 2,
+    "user": 2,
+    "body": "Another short comment",
+    "created_at": "2022-04-04T17:03:01.873Z",
+    "modified_at": "2022-04-04T17:03:01.873Z"
+  }
+},
+{
+  "model": "post.comment",
+  "pk": 5,
+  "fields": {
+    "post": 2,
+    "user": 3,
+    "body": "test comment from user 3 to post 2",
+    "created_at": "2022-04-04T19:14:56.549Z",
+    "modified_at": "2022-04-05T23:18:45.127Z"
+  }
+},
+{
+  "model": "post.comment",
+  "pk": 6,
+  "fields": {
+    "post": 3,
+    "user": 3,
+    "body": "hey from test comment!!!!!",
+    "created_at": "2022-04-04T19:17:34.980Z",
+    "modified_at": "2022-04-06T07:21:22.026Z"
+  }
+}
+]

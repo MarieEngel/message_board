@@ -1,0 +1,47 @@
+[
+{
+  "model": "user.profile",
+  "pk": 1,
+  "fields": {
+    "user": 1,
+    "photo": "profile_pics/bowie.jpg",
+    "phone": "64391764538",
+    "latitude": null,
+    "longitude": null,
+    "postcode": "8305",
+    "city": "Berlin",
+    "street": null,
+    "street_number": null
+  }
+},
+{
+  "model": "user.profile",
+  "pk": 2,
+  "fields": {
+    "user": 2,
+    "photo": "profile_pics/dog.jpg",
+    "phone": "12-452-4214",
+    "latitude": null,
+    "longitude": null,
+    "postcode": "8305",
+    "city": "Cracow",
+    "street": "Grodzka",
+    "street_number": null
+  }
+},
+{
+  "model": "user.profile",
+  "pk": 3,
+  "fields": {
+    "user": 3,
+    "photo": "profile_pics/default.jpg",
+    "phone": null,
+    "latitude": null,
+    "longitude": null,
+    "postcode": "8305",
+    "city": "Dresden",
+    "street": null,
+    "street_number": 43
+  }
+}
+]

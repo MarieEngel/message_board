@@ -26,7 +26,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = "django-insecure-l^+uh-m5%vpahn+kj=^6&a+77f4v8(xx^vrf7m8&130hm_#r#("
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = os.environ.get("DEBUG", "True") == "True"
 
 if not DEBUG:
 
@@ -179,19 +179,27 @@ STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
 MEDIA_URL = "media/"
 MEDIA_ROOT = os.path.join(BASE_DIR, "media/")
 
+if os.environ.get("GITHUB_WORKFLOW"):
+    print("Hi from GitHub Workflow!")
+    MEDIA_URL = "tests/test_pics/"
+    MEDIA_ROOT = os.path.join(BASE_DIR, "tests/test_pics/")
+
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.0/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
-AWS_S3_FILE_OVERWRITE = False
+if not os.environ.get("GITHUB_WORKFLOW"):
+    AWS_S3_FILE_OVERWRITE = False
 
-AWS_DEFAULT_ACL = None
+    AWS_DEFAULT_ACL = None
 
-DEFAULT_FILE_STORAGE = "storages.backends.s3boto3.S3Boto3Storage"
-AWS_STORAGE_BUCKET_NAME = "samso-bucket"
-AWS_S3_SIGNATURE_VERSION = "s3v4"
-AWS_S3_REGION_NAME = "eu-central-1"
+    DEFAULT_FILE_STORAGE = "storages.backends.s3boto3.S3Boto3Storage"
+    AWS_STORAGE_BUCKET_NAME = "samso-bucket"
+    AWS_S3_SIGNATURE_VERSION = "s3v4"
+    AWS_S3_REGION_NAME = "eu-central-1"
+else:
+    print("I am not in S3 :)")
 
 django_heroku.settings(locals())
 

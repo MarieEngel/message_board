@@ -1,29 +1,37 @@
 {% extends 'post/base.html' %}
-
-
+{% block title %}Update Profile{% endblock %}
+{% block og_title %}- Update your Profile{% endblock %}
 {% block content %}
-{% load crispy_forms_tags %}
-
-<div class="container">
-    <div class="row d-flex justify-content-center mt-5">
-        <div class="col col-lg-8 border form">
-            <form method="POST" enctype="multipart/form-data">
-                {% csrf_token %}
-                <fieldset>
-                    <legend class="border-bottom mb-4 px-2">Edit Profile</legend>
-                    {{ u_form|crispy }} <!-- User form -->
-                    {{ p_form|crispy }} <!-- Profile form -->
-                </fieldset>
-                <div class="form-group">
-                    <!-- <a href="#" role="button" class="px-3 btn btn-cancel-custom">
-                        Cancel
-                    </a>  -->
-                    <button class="px-3 btn btn-submit-custom" type="submit">Save</button>
-                    <a href="{% url 'user:user-profile'%}" class="btn btn-cancel-custom" role="button">Cancel</a>
+    {% load crispy_forms_tags %}
+    <div class="container">
+        <div class="row d-flex justify-content-center mt-5">
+            <div class="col col-lg-8 border form">
+                <div class="container">
+                    <p>Click Add location if you want to share the location from where you write this post with people in your neighbourhood.</p>
+                    <p class="location text-error"></p>
+                    <button class="find-location" role="button">Add location</button>
                 </div>
-            </form>
+            </br>
+                <form method="POST" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    <fieldset>
+                        <legend class="border-bottom mb-4 px-2">
+                            Edit Profile
+                        </legend>
+                        {{ u_form|crispy }} <!-- User form -->
+                        {{ p_form|crispy }} <!-- Profile form -->
+                    </fieldset>
+                    <div class="form-group">
+                        <!-- <a href="#" role="button" class="px-3 btn btn-cancel-custom">Cancel</a>  -->
+                        <button class="px-3 btn btn-submit-custom" type="submit">Save</button>
+                        <a href="{% url 'user:user-profile' %}"
+                           class="btn btn-cancel-custom"
+                           role="button">Cancel</a>
+                    </div>
+                </form>
+            </div>
         </div>
     </div>
-</div>
+    {% load static %}
+    <script src="{% static 'js/user_location.js' %}"></script>
 {% endblock %}
-

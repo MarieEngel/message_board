@@ -1,9 +1,19 @@
 {% extends 'post/base.html' %}
+{% block title %}- Update a Post{% endblock %}
+{% block og_title %}Update a Post{% endblock %}
+{% block description %}On this page you can update a post{% endblock %}
 {% block content %}
     {% load crispy_forms_tags %}
     <div class="container">
         <div class="row d-flex justify-content-center mt-5">
             <div class="col col-lg-8 border form">
+
+                <div class="container">
+                    <p>You can update your location by clicking Update location.</p>
+                    <p class="location text-error"></p>
+                    <button class="find-location" role="button">Update location</button>
+                </div>
+            </br>
                 <form method="post" enctype="multipart/form-data">
                     {% csrf_token %}
                     <fieldset>
@@ -23,4 +33,7 @@
             </div>
         </div>
     </div>
+
+    {% load static %}
+<script src="{% static 'js/main.js' %}"></script>
 {% endblock content %}
