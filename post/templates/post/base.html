@@ -31,7 +31,7 @@
         <ul class="messages list-unstyled">
             {% for msg in messages %}
             <li>
-                <div class="alert alert-{{msg.level_tag}}" role="alert">
+                <div class="alert alert-{{msg.level_tag}} text-center" role="alert">
                 {{msg.message}}
                 </div>
             </li>
