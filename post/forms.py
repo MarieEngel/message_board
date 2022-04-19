@@ -12,6 +12,10 @@ class AddPostForm(ModelForm):
             "title": forms.TextInput(attrs={"class": "form-control"}),
             "photo": forms.FileInput(attrs={"class": "form-control"}),
             "body": forms.Textarea(attrs={"class": "form-control"}),
+            "latitude": forms.HiddenInput(attrs={"class": "form-control latitude"}),
+            "longitude": forms.HiddenInput(attrs={"class": "form-control longitude"}),
+            "postcode": forms.HiddenInput(attrs={"class": "form-control postcode"}),
+            "city": forms.HiddenInput(attrs={"class": "form-control city"}),
         }
 
 
