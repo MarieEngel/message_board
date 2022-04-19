@@ -1,6 +1,8 @@
 {% extends 'post/base.html' %}
 {% block title %}{{ post.title }}{% endblock %}
 {% block seo %}
+    <meta property="og:title" content="{{ post.title }}">
+    <meta property="og:image" content="{{ post.photo.url }}">
     <meta name="description"
           property="og:description"
           content="On this detail page you find a post with complete text.">

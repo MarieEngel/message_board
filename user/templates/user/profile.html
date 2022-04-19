@@ -1,6 +1,8 @@
 {% extends 'post/base.html' %}
 {% block title %}Profile{% endblock %}
 {% block seo %}
+    <meta property="og:title" content="Profile" />
+    <meta property="og:image" content="{{ user.profile.image.url }}">
     <meta name="description"
           property="og:description"
           content="This page displays your profile with username, email, phone and the option to edit the profile.">

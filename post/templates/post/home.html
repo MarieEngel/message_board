@@ -1,6 +1,8 @@
 {% extends 'post/base.html' %}
 {% block title %}Latest Posts{% endblock %}
 {% block seo %}
+    <meta property="og:title" content="Latest Posts" />
+    <meta property="og:image" content="{{ post.photo.url }}">
     <meta name="description"
           property="og:description"
           content="On this page you have an overview of the latest posts.">
