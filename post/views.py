@@ -1,17 +1,16 @@
+import folium
+
 from django.contrib.auth.decorators import login_required
-from django.http import HttpResponse
 from django.shortcuts import render, redirect, get_object_or_404
+from django.contrib.auth.mixins import PermissionRequiredMixin, LoginRequiredMixin
+from django.core.exceptions import PermissionDenied
+from django.views.generic import CreateView, DeleteView, UpdateView
+from django.urls import reverse_lazy
+from django.db.models import Q
 
 from .forms import AddPostForm, CommentForm, SearchForm
-
-from django.contrib.auth.mixins import PermissionRequiredMixin
-from django.core.exceptions import PermissionDenied
 from .models import Post, Comment
-from django.urls import reverse_lazy
-from django.views.generic import CreateView, DeleteView, UpdateView
-from django.contrib.auth.mixins import LoginRequiredMixin
-from django.db.models import Q
-import folium
+
 
 # Create your views here.
 @login_required
