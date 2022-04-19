@@ -7,9 +7,10 @@
         <title>
             {% block title %}Message Board{% endblock %}
         </title>
+        {% load static %}
         <meta property="og:image" {% comment %} content="https://samso-bucket.s3.eu-central-1.amazonaws.com/images/logo.png">
         {% endcomment %}
-        content="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a6/Denmark_location_samso.svg/300px-Denmark_location_samso.svg.png">
+        content="{% static '/images/logo.png' %}">
         <meta property="og:title"
               content="Free regional website to share information with your neighbours. {% block og_title %}{% endblock %}"/>
         <meta name="description"
@@ -22,7 +23,6 @@
               rel="stylesheet"
               integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3"
               crossorigin="anonymous">
-        {% load static %}
         <link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}">
     </head>
     <body>
