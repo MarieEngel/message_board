@@ -18,7 +18,7 @@ class ProfileForm(forms.ModelForm):
         model = models.Profile
         exclude = ["user"]
         widgets = {
-            "image": forms.FileInput(attrs={"class": "form-control"}),
+            "photo": forms.FileInput(attrs={"class": "form-control"}),
             "latitude": forms.HiddenInput(attrs={"class": "form-control latitude"}),
             "longitude": forms.HiddenInput(attrs={"class": "form-control longitude"}),
             "city": forms.TextInput(attrs={"class": "form-control city"}),
@@ -37,10 +37,3 @@ class UserUpdateForm(forms.ModelForm):
     class Meta:
         model = User
         fields = ["username", "email"]
-
-
-# Create a ProfileUpdateForm to update image
-# class ProfileUpdateForm(forms.ModelForm):
-#     class Meta:
-#         model = models.Profile
-#         fields = ["image"]

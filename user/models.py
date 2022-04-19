@@ -10,7 +10,7 @@ def validate_postcode(value):
 
 class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
-    image = models.ImageField(
+    photo = models.ImageField(
         default="profile_pics/default.jpg", upload_to="profile_pics", blank=True
     )
     phone = models.CharField(max_length=20, null=True, blank=True)
