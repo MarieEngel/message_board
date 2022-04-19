@@ -5,7 +5,7 @@ const getLocation = async () => {
     const postcode = document.querySelector('.postcode');
     const city = document.querySelector('.city');
     const street = document.querySelector('.street');
-    const street_number_number = document.querySelector('.street_number');
+    const street_number = document.querySelector('.street_number');
 
 
     const success = async (position) => {
@@ -23,18 +23,22 @@ const getLocation = async () => {
             lon.value = longitude;
             const [firstResult, ...rest] = data.results;
             const parts = firstResult.address_components;
-            console.log(parts)
+            console.log(parts);
             for (const part of parts) {
                 if (part.types.includes("postal_code")) {
+                    console.log(part.long_name);
                     postcode.value = part.long_name;
                 }
                 if (part.types.includes("locality")) {
+                    console.log(part.long_name);
                     city.value = part.long_name;
                 }
                 if (part.types.includes("route")) {
+                    console.log(part.long_name);
                     street.value = part.long_name;
                 }
                 if (part.types.includes("street_number")) {
+                    console.log(part.long_name);
                     street_number.value = part.long_name;
                 }
             }
