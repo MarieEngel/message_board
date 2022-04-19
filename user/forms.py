@@ -13,7 +13,7 @@ class UserRegisterForm(UserCreationForm):
         fields = ["username", "email", "password1", "password2"]
 
 
-class ProfileRegisterForm(forms.ModelForm):
+class ProfileForm(forms.ModelForm):
     class Meta:
         model = models.Profile
         exclude = ["user"]
@@ -34,7 +34,7 @@ class UserUpdateForm(forms.ModelForm):
 
 
 # Create a ProfileUpdateForm to update image
-class ProfileUpdateForm(forms.ModelForm):
-    class Meta:
-        model = models.Profile
-        fields = ["image"]
+# class ProfileUpdateForm(forms.ModelForm):
+#     class Meta:
+#         model = models.Profile
+#         fields = ["image"]

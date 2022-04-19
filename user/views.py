@@ -9,8 +9,7 @@ from . import models
 from .forms import (
     UserRegisterForm,
     UserUpdateForm,
-    ProfileUpdateForm,
-    ProfileRegisterForm,
+    ProfileForm,
 )
 
 
@@ -18,7 +17,7 @@ from .forms import (
 def register(request):
     if request.method == "POST":
         u_form = UserRegisterForm(request.POST)
-        p_form = ProfileRegisterForm(request.POST, request.FILES)
+        p_form = ProfileForm(request.POST, request.FILES)
 
         if u_form.is_valid() and p_form.is_valid():
             u_form.save()
@@ -33,7 +32,7 @@ def register(request):
             return redirect(reverse("user:login"))
     else:
         u_form = UserRegisterForm()
-        p_form = ProfileRegisterForm()
+        p_form = ProfileForm()
     return render(request, "user/register.html", {"u_form": u_form, "p_form": p_form})
 
 
@@ -44,9 +43,7 @@ def update_profile(request):
         print(request.POST)
 
         u_form = UserUpdateForm(request.POST, instance=request.user)
-        p_form = ProfileUpdateForm(
-            request.POST, request.FILES, instance=request.user.profile
-        )
+        p_form = ProfileForm(request.POST, request.FILES, instance=request.user.profile)
         print(request.FILES)
         if u_form.is_valid() and p_form.is_valid():
             print(request.POST)
@@ -59,7 +56,7 @@ def update_profile(request):
 
     else:
         u_form = UserUpdateForm(instance=request.user)
-        p_form = ProfileUpdateForm(instance=request.user.profile)
+        p_form = ProfileForm(instance=request.user.profile)
 
     context = {"u_form": u_form, "p_form": p_form}
     return render(request, "user/update_profile.html", context)
