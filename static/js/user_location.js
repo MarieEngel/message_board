@@ -23,6 +23,7 @@ const getLocation = async () => {
             lon.value = longitude;
             const [firstResult, ...rest] = data.results;
             const parts = firstResult.address_components;
+            console.log(parts)
             for (const part of parts) {
                 if (part.types.includes("postal_code")) {
                     postcode.value = part.long_name;
