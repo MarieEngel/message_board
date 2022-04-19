@@ -2,28 +2,37 @@
 {% block title %}Register{% endblock %}
 {% block og_title %}- Register{% endblock %}
 {% block content %}
-    {% load crispy_forms_tags %}
-    <div class="container">
-        <div class="row d-flex justify-content-center mt-5">
-            <div class="col col-lg-8 border form">
-                <form method="post">
-                    {% csrf_token %}
-                    <fieldset>
-                        <legend class="border-bottom mb-4 px-2">
-                            Join today
-                        </legend>
-                        {{ form|crispy  }}
-                    </fieldset>
-                    <div class="form-group">
-                        <button class="btn btn-submit-custom" type="submit">Sign in</button>
-                    </div>
-                </form>
-                <div class="border-top pt-3">
-                    <small class="text-muted">
-                        Already have an account? <a href="{% url 'user:login' %}">Sign In</a>
-                    </small>
-                </div>
+{% load crispy_forms_tags %}
+
+<div class="container">
+    <div class="row d-flex justify-content-center mt-5">
+        <div class="col col-lg-8 border form">
+            <div class="container">
+                <p>Click Add location if you want to share the location from where you write this post with people in your neighbourhood.</p>
+                <p class="location text-error"></p>
+                <button class="find-location" role="button">Add location</button>
             </div>
+        </br>
+        <form method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            <fieldset>
+                <legend class="border-bottom mb-4 px-2">Join today</legend>
+                {{ u_form|crispy  }}
+                {{ p_form|crispy  }}
+
+            </fieldset>
+            <div class="form-group">
+                <button class="btn btn-submit-custom" type="submit">Sign in</button>
+            </div>
+        </form>
+        <div class="border-top pt-3">
+        <small class="text-muted">
+            Already have an account? <a href="{% url 'user:login' %}">Sign In</a>
+        </small>
+        </div>
         </div>
     </div>
+</div>
+{% load static %}
+<script src="{% static 'js/user_location.js' %}"></script>
 {% endblock %}
