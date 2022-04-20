@@ -26,6 +26,19 @@
         <link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}">
     </head>
     <body>
+        <!-- Messages -->
+        {% if messages %}
+        <ul class="messages list-unstyled">
+            {% for msg in messages %}
+            <li>
+                <div class="alert alert-{{msg.level_tag}} text-center" role="alert">
+                {{msg.message}}
+                </div>
+            </li>
+            {% endfor %}
+        </ul>
+        {% endif %}
+        <!-- End Messages alerts -->
         <!-- Nav -->
         <nav class="navbar navbar-expand-lg">
             <div class="container-fluid">
