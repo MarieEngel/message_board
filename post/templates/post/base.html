@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
     <head>
+        {% load static %}
         <meta charset="UTF-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -9,7 +10,7 @@
         </title>
         <meta property="og:image" {% comment %} content="https://samso-bucket.s3.eu-central-1.amazonaws.com/images/logo.png">
         {% endcomment %}
-        content="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a6/Denmark_location_samso.svg/300px-Denmark_location_samso.svg.png">
+        content="{% static 'img/logo.png' %}">
         <meta property="og:title"
               content="Free regional website to share information with your neighbours. {% block og_title %}{% endblock %}"/>
         <meta name="description"
@@ -22,9 +23,9 @@
               rel="stylesheet"
               integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3"
               crossorigin="anonymous">
-        {% load static %}
+
         <link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}">
-        <link rel="shortcut icon" type="image/png" href="{% static 'favicon/favicon.ico' %}"/>
+        <link rel="shortcut icon" type="image/png" href="{% static 'img/favicon.ico' %}"/>
     </head>
     <body>
         <!-- Messages -->
