@@ -1,11 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
 
-# class Location(models.Model):
-#     street = models.CharField(max_length=100)
-#     city = models.CharField(max_length=100)
-#     postal_code = models.CharField(max_length=4)
-
 
 class Category(models.Model):
     name = models.CharField(max_length=100)

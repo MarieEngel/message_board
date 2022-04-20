@@ -1,10 +1,9 @@
 from django import forms
-from django.forms import ModelForm
 
 from .models import Post, Comment, Category
 
 
-class AddPostForm(ModelForm):
+class AddPostForm(forms.ModelForm):
     class Meta:
         model = Post
         exclude = ["user", "modified_at", "created_at", "solved_at"]
@@ -19,7 +18,7 @@ class AddPostForm(ModelForm):
         }
 
 
-class CommentForm(ModelForm):
+class CommentForm(forms.ModelForm):
     class Meta:
         model = Comment
         fields = ["body"]

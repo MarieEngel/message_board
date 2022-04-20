@@ -24,7 +24,6 @@ class TestPost(TestCase):
         )
         self.assertRedirects(response, "/")
         response = self.client.get("/")
-        print(response)
         self.assertContains(response, "Some title")
 
     def test_delete_post(self):
