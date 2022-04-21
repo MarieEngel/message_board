@@ -6,6 +6,7 @@ from django.contrib.auth.mixins import PermissionRequiredMixin, LoginRequiredMix
 from django.core.exceptions import PermissionDenied
 from django.views.generic import CreateView, DeleteView, UpdateView
 from django.urls import reverse_lazy
+from django.contrib.postgres.search import SearchVector, SearchRank, SearchQuery
 from django.db.models import Q
 
 from .forms import AddPostForm, CommentForm, SearchForm
@@ -102,8 +103,14 @@ def search(request):
         is_valid = form.is_valid()
         if is_valid:
             search_term = request.GET["query"]
-            results = Post.objects.filter(
-                Q(title__search=search_term) | Q(body__search=search_term)
+            vector = SearchVector("title", weight="A") + SearchVector(
+                "body", weight="B"
+            )
+            query = SearchQuery(search_term)
+            results = (
+                Post.objects.annotate(rank=SearchRank(vector, query))
+                .filter(rank__gte=0.2)
+                .order_by("-rank")
             )
             category = form.cleaned_data.get("categories")
             if category == "All":
